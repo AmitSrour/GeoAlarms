@@ -1,4 +1,6 @@
 target/
+gen/
+lint.xml
 tmp/
 bin/
 .env
