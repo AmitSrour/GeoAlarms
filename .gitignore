@@ -4,3 +4,4 @@ lint.xml
 tmp/
 bin/
 .env
+*.swp
