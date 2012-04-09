@@ -98,6 +98,7 @@
                     android:id="@+id/prefsButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="toPreferences"
                     android:text="preferences" />
 
                 <TextView
@@ -121,6 +122,7 @@
                     android:id="@+id/helpButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="toHelp"
                     android:text="Help" />
 
                 <TextView

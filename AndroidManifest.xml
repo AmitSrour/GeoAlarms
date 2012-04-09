@@ -15,9 +15,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MapActivityView">
+        <activity android:name=".MapActivityView"
+            	  android:label="@string/map_view_name">
         </activity>
-        <activity android:name=".AlarmListActivity">
+        <activity android:name=".AlarmListActivity"
+            	  android:label="@string/alarm_view_name">
+        </activity>
+        <activity android:name=".PreferencesActivity"
+            	  android:label="@string/preferences_view_name">
+        </activity>
+        <activity android:name=".HelpActivity"
+            	  android:label="@string/help_view_name">
         </activity>
     </application>
         <uses-permission android:name="android.permission.INTERNET" />

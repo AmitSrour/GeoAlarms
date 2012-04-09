@@ -9,6 +9,8 @@ public class HomeActivity extends Activity {
 	/** Called when the activity is first created. */
 	private final int MAPACTIVITY = 1;
 	private final int ALARMLISTACTIVITY = 2;
+	private final int PREFERENCESACTIVITY = 3;
+	private final int HELPACTIVITY = 4;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -24,5 +26,15 @@ public class HomeActivity extends Activity {
 	public void toAlarmsList(View v) {
 		Intent intent = new Intent(HomeActivity.this,AlarmListActivity.class);
 		this.startActivityForResult(intent, ALARMLISTACTIVITY);
+	}
+	
+	public void toPreferences(View v) {
+		Intent intent = new Intent(HomeActivity.this,PreferencesActivity.class);
+		this.startActivityForResult(intent, PREFERENCESACTIVITY);
+	}
+	
+	public void toHelp(View v) {
+		Intent intent = new Intent(HomeActivity.this, HelpActivity.class);
+		this.startActivityForResult(intent, HELPACTIVITY);
 	}
 }

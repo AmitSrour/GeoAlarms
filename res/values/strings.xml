@@ -2,4 +2,8 @@
 <resources>
     <string name="app_name">GeoAlarms</string>
     <string name="welcome_text">Now, write some code!</string>
+    <string name="map_view_name">Map</string>
+    <string name="help_view_name">Help</string>
+    <string name="preferences_view_name">Preferences</string>
+    <string name="alarm_view_name">Alarms list</string>
 </resources>
