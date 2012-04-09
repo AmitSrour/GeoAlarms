@@ -14,9 +14,9 @@ public class MapActivityView extends MapActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map);
         
-        MapView map = (MapView) findViewById(R.id.mapView);
+        /*MapView map = (MapView) findViewById(R.id.mapView);
         
-        map.setBuiltInZoomControls(true);
+        map.setBuiltInZoomControls(true);*/
         
     }
 	@Override
@@ -24,5 +24,4 @@ public class MapActivityView extends MapActivity{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }

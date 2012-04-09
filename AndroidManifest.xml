@@ -16,7 +16,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".MapActivityView">
-            </activity>
+        </activity>
+        <activity android:name=".AlarmListActivity">
+        </activity>
     </application>
         <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
