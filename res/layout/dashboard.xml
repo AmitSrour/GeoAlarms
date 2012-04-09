@@ -6,14 +6,14 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/statusBar"
+        android:id="@+id/statusBarLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="10"
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/status"
+            android:id="@+id/statusButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Status" />
@@ -33,7 +33,7 @@
             android:layout_weight="1" >
 
             <LinearLayout
-                android:id="@+id/map"
+                android:id="@+id/mapLayout"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -43,6 +43,7 @@
                     android:id="@+id/mapButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="toMap"
                     android:text="Map" />
 
                 <TextView
@@ -54,7 +55,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/alarm"
+                android:id="@+id/alarmLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -85,7 +86,7 @@
             android:gravity="bottom" >
 
             <LinearLayout
-                android:id="@+id/preferences"
+                android:id="@+id/preferencesLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -108,7 +109,7 @@
 
             
             <LinearLayout
-                android:id="@+id/help"
+                android:id="@+id/helpLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
