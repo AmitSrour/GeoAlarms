@@ -24,7 +24,7 @@ public class AlarmManager {
     }
 
     public List<Alarm> getAlarmsWithinRadius(Location location, int radius) {
-        List<Alarm> alarms =  new ArrayList<Alarm>;
+        List<Alarm> alarms =  new ArrayList<Alarm>();
         return alarms;
     }
 
