@@ -1,9 +1,10 @@
-package com.bandoleros.geoalarms;
+package com.bandoleros.geoalarms.activity;
 
+import com.bandoleros.geoalarms.R;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class PreferencesActivity extends Activity{
+public class Preferences extends Activity {
 
 	public void onCreate(Bundle savedInstanceState)
     {
