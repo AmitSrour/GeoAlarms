@@ -1,13 +1,15 @@
-package com.bandoleros.geoalarms;
+package com.bandoleros.geoalarms.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 
-public class PreferencesActivity extends Activity{
+
+
+public class AlarmList extends Activity {
 
 	public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.preferences);
+        setContentView(R.layout.listalarms);
     }
 }

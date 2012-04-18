@@ -1,11 +1,11 @@
-package com.bandoleros.geoalarms;
+package com.bandoleros.geoalarms.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class HomeActivity extends Activity {
+public class Home extends Activity {
 	/** Called when the activity is first created. */
 	private final int MAPACTIVITY = 1;
 	private final int ALARMLISTACTIVITY = 2;
@@ -19,22 +19,22 @@ public class HomeActivity extends Activity {
 	}
 
 	public void toMap(View v) {
-		Intent intent = new Intent(HomeActivity.this,MapActivityView.class);
+		Intent intent = new Intent(Home.this, Map.class);
 		this.startActivityForResult(intent, MAPACTIVITY);
 	}
 	
 	public void toAlarmsList(View v) {
-		Intent intent = new Intent(HomeActivity.this,AlarmListActivity.class);
+		Intent intent = new Intent(Home.this, AlarmList.class);
 		this.startActivityForResult(intent, ALARMLISTACTIVITY);
 	}
 	
 	public void toPreferences(View v) {
-		Intent intent = new Intent(HomeActivity.this,PreferencesActivity.class);
+		Intent intent = new Intent(Home.this, Preferences.class);
 		this.startActivityForResult(intent, PREFERENCESACTIVITY);
 	}
 	
 	public void toHelp(View v) {
-		Intent intent = new Intent(HomeActivity.this, HelpActivity.class);
+		Intent intent = new Intent(Home.this, Help.class);
 		this.startActivityForResult(intent, HELPACTIVITY);
 	}
 }

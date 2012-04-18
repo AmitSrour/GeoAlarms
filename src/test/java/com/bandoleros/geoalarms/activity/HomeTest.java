@@ -1,4 +1,4 @@
-package com.bandoleros.geoalarms;
+package com.bandoleros.geoalarms.activity;
 
 import android.content.Intent;
 import android.widget.TextView;
@@ -14,12 +14,12 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(RobolectricTestRunner.class)
 public class HomeActivityTest {
-    private HomeActivity activity;
+    private Home activity;
     private TextView welcomeText;
 
     @Before
     public void setUp() throws Exception {
-        activity = new HomeActivity();
+        activity = new Home();
         activity.onCreate(null);
         welcomeText = (TextView) activity.findViewById(R.id.welcome_text_view);
     }
