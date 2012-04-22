@@ -16,6 +16,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Status" />
+        <Button
+            android:id="@+id/markCenterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="markCenter"
+            android:text="Mark center" />
     </LinearLayout>
 
     <com.google.android.maps.MapView
@@ -25,6 +31,7 @@
         android:apiKey="08sWOtNz91-woB6rnfk6loPDaEUAbOJtS2_0bHA"
         android:clickable="true"
         android:layout_weight="1"
+        android:onClick="drawPoint"
         />
 
 </LinearLayout>
