@@ -1,16 +1,16 @@
-package com.bandoleros.geoalarms.model;
+package com.geoalarms.model;
 
 import android.location.Location;
 
 public class Alarm {
-	public int radio;
-	public Location point;
+	public int radius;
+	public Location location;
 	public String name;
 	public String description;
 	
-	public Alarm(int radio, Location point, String name, String description) {
-		this.radio = radio;
-		this.point = point;
+	public Alarm(int radius, Location location, String name, String description) {
+		this.radius = radius;
+		this.location = location;
 		this.name = name;
 		this.description = description;
 	}
