@@ -1,6 +1,6 @@
-package com.bandoleros.geoalarms.activity;
+package com.geoalarms.activity;
 
-import com.bandoleros.geoalarms.R;
+import com.geoalarms.R;
 
 import android.app.Activity;
 import android.os.Bundle;
