@@ -27,18 +27,53 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
                     KEY_NAME        + " TEXT, "     +
                     KEY_DESCRIPTION + " TEXT);";
 
-    public AlarmDatabaseHelper (Context context) {
+    public AlarmDatabaseHelper (Context context) 
+    {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase db) 
+    {
         db.execSQL(ALARMS_TABLE_CREATE);
     }
 
 	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+	public void onUpgrade(SQLiteDatabase db, 
+	                      int oldVersion, 
+	                      int newVersion) 
+	{
 		// TODO Auto-generated method stub
-		
 	}
+
+	public void insert(int radius, 
+	                   float latitude, 
+	                   float longitude, 
+	                   String name, 
+	                   String description) 
+	{
+	    SQLiteDatabase db = this.getWritableDatabase();
+
+	    if (db == null) {
+	        // TODO: throw an exception 
+	        return;
+        } else {
+            
+            // database connection succesfully opened
+            db.execSQL("INSERT INTO " + DATABASE_NAME + "(" + 
+                            KEY_RADIUS + ", " +
+                            KEY_LATITUDE + ", " + 
+                            KEY_LONGITUDE + ", " + 
+                            KEY_NAME + ", " + 
+                            KEY_DESCRIPTION + ") " +
+                            "VALUES (" + 
+                                radius + ", " +
+                                latitude + ", " + 
+                                longitude + ", " + 
+                                name + ", " +
+                                description + ")");
+            db.close();
+        }
+
+    }
 }
