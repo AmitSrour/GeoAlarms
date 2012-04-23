@@ -2,12 +2,11 @@ package com.geoalarms.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.geoalarms.GeoAlarms;
 import com.geoalarms.R;
 import com.geoalarms.model.Alarm;
 
@@ -15,7 +14,6 @@ import com.geoalarms.model.Alarm;
 
 public class AlarmList extends Activity {
 
-	final public int NEWALARMACTIVITY = 5;
 	
 	private LinearLayout alarmlist = null;
 	
@@ -29,13 +27,13 @@ public class AlarmList extends Activity {
 	
 	public void addAlarm(View v){
 		Intent intent = new Intent(AlarmList.this,NewAlarm.class);
-		this.startActivityForResult(intent, NEWALARMACTIVITY);
+		this.startActivityForResult(intent, GeoAlarms.NEWALARMACTIVITY);
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
-		case NEWALARMACTIVITY:
+		case GeoAlarms.NEWALARMACTIVITY:
 			if (resultCode == RESULT_OK && data != null) {
 				int radioReturned = data.getIntExtra("radio", -1);
 				String nameReturned = data.getStringExtra("name");
