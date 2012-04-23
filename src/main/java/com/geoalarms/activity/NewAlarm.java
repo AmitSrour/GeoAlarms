@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.geoalarms.R;
 import com.geoalarms.model.MapOverlay;
@@ -27,6 +28,7 @@ public class NewAlarm extends MapActivity {
 	private TextView alarmName = null;
 	private TextView alarmDescription = null;
 	private int[] numericalItems = null;
+	private GeoPoint point = null;
 
 	public void onCreate(Bundle savedInstanceState)
     {
@@ -54,12 +56,14 @@ public class NewAlarm extends MapActivity {
 	}
 	
 	public void markCenter(View v){
-		MapOverlay om = new MapOverlay(mapView.getMapCenter());
+		this.point = mapView.getMapCenter();
+		MapOverlay om = new MapOverlay(this.point);
 		mapView.invalidate();
 		layers.add(om);
 	}
 	
 	public void onSubmit(View v){
+		if (this.point != null && !alarmName.getText().toString().equals("")){
 		Intent in = new Intent();
 
 		// radius
@@ -83,5 +87,9 @@ public class NewAlarm extends MapActivity {
 		in.putExtra("description", description);
 		this.setResult(RESULT_OK, in);
 		finish();
+		}else{
+			Toast toast = Toast.makeText(getApplicationContext(), "Pin a point and Introduce name", Toast.LENGTH_SHORT);
+			toast.show();
+		}
 	}
 }
