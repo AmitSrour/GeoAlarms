@@ -15,7 +15,8 @@
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Status" />
+            android:onClick="addAlarm"
+            android:text="Add Alarm" />
     </LinearLayout>
 
     <LinearLayout
