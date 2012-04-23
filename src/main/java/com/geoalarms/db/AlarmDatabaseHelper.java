@@ -19,13 +19,19 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_LONGITUDE = "longitude";
     private static final String KEY_NAME = "name";
     private static final String KEY_DESCRIPTION = "description";
+
+    private static final String[] KEYS = {KEY_RADIUS, 
+                                          KEY_LATITUDE,
+                                          KEY_LONGITUDE,
+                                          KEY_NAME,
+                                          KEY_DESCRIPTION};
     
     // SQL query to create database
     private static final String ALARMS_TABLE_CREATE =
                 "CREATE TABLE "     + DATABASE_NAME + " (" +
-                    KEY_RADIUS      + " INTEGER,"   +
-                    KEY_LATITUDE    + " REAL,"      +
-                    KEY_LONGITUDE   + " REAL, "     +
+                    KEY_RADIUS      + " INTEGER NOT NULL,"   +
+                    KEY_LATITUDE    + " REAL NOT NULL,"      +
+                    KEY_LONGITUDE   + " REAL NOT NULL, "     +
                     KEY_NAME        + " TEXT UNIQUE, "     +
                     KEY_DESCRIPTION + " TEXT);";
 
@@ -36,6 +42,7 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(ALARMS_TABLE_CREATE);
+        db.close();
     }
 
 	@Override
@@ -123,7 +130,7 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
             // surround strings with `'`
             String nameField = "'" + name + "'";
 
-            // update SQL statement
+            // delete SQL statement
             db.execSQL("DELETE FROM " + DATABASE_NAME + 
                         " WHERE" + 
                             KEY_NAME + "=" + nameField);
@@ -132,21 +139,20 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor all(String groupBy,
-                      String orderBy) {
+    public Cursor all() {
 	    // get database
 	    SQLiteDatabase db = this.getReadableDatabase();
         
         
-        Cursor cursor = db.query(true,                      // distinct alarms 
-                                 DATABASE_NAME,             // table
-                                 null,                      // columns (all)
-                                 null,                      // selection
-                                 null,                      // selectionArgs
-                                 groupBy,                   // group by
-                                 null,                      // having
-                                 orderBy,                   // order by
-                                 null);                     // limit
+        //Cursor cursor = db.query(DATABASE_NAME,
+                                 //KEYS,
+                                 //null,
+                                 //null,
+                                 //null,
+                                 //null,
+                                 //null);
+        Cursor cursor = db.rawQuery("SELECT radius, latitude, longitude, name, description FROM" + DATABASE_NAME + ";",
+                                    null);
 
         db.close();
 
