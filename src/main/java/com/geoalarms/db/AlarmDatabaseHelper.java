@@ -1,6 +1,6 @@
 package com.geoalarms.db;
 
-import android.content.Context;
+import com.geoalarms.GeoAlarms;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -27,9 +27,9 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
                     KEY_NAME        + " TEXT, "     +
                     KEY_DESCRIPTION + " TEXT);";
 
-    public AlarmDatabaseHelper (Context context) 
+    public AlarmDatabaseHelper () 
     {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(GeoAlarms.getAppContext(), DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override

@@ -1,22 +1,19 @@
 package com.geoalarms.model;
 
-import android.content.Context;
+import com.geoalarms.db.AlarmDatabaseHelper;
 
 import android.location.Location;
 
 import java.util.List;
 import java.util.ArrayList;
 
-import com.geoalarms.db.AlarmDatabaseHelper;
 
 public class AlarmManager {
 
-    private Context context;
     private AlarmDatabaseHelper databaseHelper;
 
-    public AlarmManager(Context context) {
-        this.context = context;
-        this.databaseHelper = new AlarmDatabaseHelper(context);    
+    public AlarmManager() {
+        this.databaseHelper = new AlarmDatabaseHelper();    
     }
 
     public void add(Alarm... alarms) {

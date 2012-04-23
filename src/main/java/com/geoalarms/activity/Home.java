@@ -16,6 +16,8 @@ public class Home extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dashboard);
+
+		AlarmManager alarms = new AlarmManager();
 	}
 
 	public void toMap(View v) {
