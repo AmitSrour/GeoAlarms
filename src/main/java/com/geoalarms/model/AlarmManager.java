@@ -18,8 +18,8 @@ public class AlarmManager {
         for(Alarm alarm: alarms) {
             try {
                 this.databaseHelper.insert(alarm.radius,
-                                           alarm.point.latitude,
-                                           alarm.point.longitude,
+                                           alarm.coordinates.latitude,
+                                           alarm.coordinates.longitude,
                                            alarm.name,
                                            alarm.description);
             } catch (Exception e) {
@@ -36,7 +36,7 @@ public class AlarmManager {
 
     }
 
-    public List<Alarm> getAlarmsWithinRadius(Point point, int radius) {
+    public List<Alarm> getAlarmsWithinRadius(Coordinates coordinates, int radius) {
         List<Alarm> alarms =  new ArrayList<Alarm>();
         return alarms;
     }
