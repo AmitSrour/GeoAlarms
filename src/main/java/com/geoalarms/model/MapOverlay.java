@@ -1,4 +1,4 @@
-package com.bandoleros.geoalarms.model;
+package com.geoalarms.model;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

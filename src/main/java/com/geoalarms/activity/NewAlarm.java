@@ -1,12 +1,12 @@
-package com.bandoleros.geoalarms.activity;
+package com.geoalarms.activity;
 
 import java.util.List;
 
 import android.os.Bundle;
 import android.view.View;
 
-import com.bandoleros.geoalarms.R;
-import com.bandoleros.geoalarms.model.MapOverlay;
+import com.geoalarms.R;
+import com.geoalarms.model.MapOverlay;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;

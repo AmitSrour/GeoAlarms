@@ -5,8 +5,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.bandoleros.geoalarms.R;
-
 
 
 public class AlarmList extends Activity {
