@@ -43,6 +43,11 @@
         <activity android:name=".activity.Help"
             	  android:label="@string/help_view_name">
         </activity>
+        
+        <!-- NewAlarm -->
+        <activity android:name=".activity.NewAlarm"
+            	  android:label="@string/help_view_name">
+        </activity>
 
     </application>
 

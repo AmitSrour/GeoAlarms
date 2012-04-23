@@ -59,10 +59,11 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
 	        return;
         } else {
             
+            // surround strings with `'`
             String nameField = "'" + name + "'";
             String descriptionField = "'" + description + "'";
 
-            // database connection succesfully opened
+            // insert SQL statement
             db.execSQL("INSERT INTO " + DATABASE_NAME + " (" + 
                             KEY_RADIUS + ", " +
                             KEY_LATITUDE + ", " + 
@@ -75,6 +76,7 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
                                 longitude + ", " + 
                                 nameField + ", " +
                                 descriptionField + ")");
+
             db.close();
         }
     }

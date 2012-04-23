@@ -1,10 +1,9 @@
 package com.geoalarms.model;
 
-import com.geoalarms.db.AlarmDatabaseHelper;
-
 import java.util.List;
 import java.util.ArrayList;
 
+import com.geoalarms.db.AlarmDatabaseHelper;
 
 public class AlarmManager {
 
