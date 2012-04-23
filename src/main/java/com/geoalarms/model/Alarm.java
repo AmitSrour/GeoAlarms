@@ -1,24 +1,27 @@
 package com.geoalarms.model;
 
+import com.geoalarms.model.Coordinates;
+
 import android.content.Context;
-import android.location.Location;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class Alarm {
 	public int radius;
-	public Location location;  
+	public Coordinates coordinates;
 	public String name;
 	public String description;
-	
-	public Alarm(int radius, Location location, String name, String description) {
+
+	public Alarm(int radius, 
+	             Coordinates coordinates, 
+	             String name, 
+	             String description) {
 		this.radius = radius;
-		this.location = location;
+		this.coordinates = coordinates;
 		this.name = name;
 		this.description = description;
 	}
-	
+
 	public LinearLayout alarmView(Context con){
 		LinearLayout pack = new LinearLayout(con);
 		pack.setOrientation(LinearLayout.VERTICAL);

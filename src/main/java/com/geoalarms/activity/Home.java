@@ -1,10 +1,9 @@
 package com.geoalarms.activity;
-<<<<<<< HEAD
-=======
-
->>>>>>> ae579da... Added all Id Activities to GeoAlarms to make them commons
 import com.geoalarms.GeoAlarms;
+
 import com.geoalarms.R;
+import com.geoalarms.model.AlarmManager;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +16,8 @@ public class Home extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dashboard);
+
+		AlarmManager alarms = new AlarmManager();
 	}
 
 	public void toMap(View v) {

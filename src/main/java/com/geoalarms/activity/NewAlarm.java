@@ -25,6 +25,7 @@ public class NewAlarm extends MapActivity {
 	private TextView alarmName = null;
 	private TextView alarmDescription = null;
 	private int[] numericalItems = null;
+
 	public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
