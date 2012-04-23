@@ -2,7 +2,10 @@ package com.geoalarms.activity;
 
 import java.util.List;
 
+import com.google.android.maps.GeoPoint;
+
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,11 +14,10 @@ import android.widget.TextView;
 
 import com.geoalarms.R;
 import com.geoalarms.model.MapOverlay;
+import com.geoalarms.model.Coordinates;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
-
-
 
 public class NewAlarm extends MapActivity {
 
@@ -59,11 +61,24 @@ public class NewAlarm extends MapActivity {
 	
 	public void onSubmit(View v){
 		Intent in = new Intent();
+
+		// radius
 		int pos = radioSpinner.getSelectedItemPosition();
 		int radius = numericalItems[pos];
+
+		// coordinates
+        GeoPoint center = mapView.getMapCenter();
+        // TODO: convert this in custom `MapView` class?
+        Coordinates coords = new Coordinates(center);
+
+        // name and description
 		String name = alarmName.getText().toString();
 		String description = alarmDescription.getText().toString();
-		in.putExtra("radio", radius);
+
+		// send data back
+		in.putExtra("radius", radius);
+		in.putExtra("latitude", coords.latitude);
+		in.putExtra("longitude", coords.longitude);
 		in.putExtra("name", name);
 		in.putExtra("description", description);
 		this.setResult(RESULT_OK, in);

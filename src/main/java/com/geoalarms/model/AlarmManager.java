@@ -15,15 +15,11 @@ public class AlarmManager {
 
     public void add(Alarm... alarms) {
         for(Alarm alarm: alarms) {
-            try {
-                this.databaseHelper.insert(alarm.radius,
-                                           alarm.coordinates.latitude,
-                                           alarm.coordinates.longitude,
-                                           alarm.name,
-                                           alarm.description);
-            } catch (Exception e) {
-                // TODO
-            }
+            this.databaseHelper.insert(alarm.radius,
+                                       alarm.coordinates.latitude,
+                                       alarm.coordinates.longitude,
+                                       alarm.name,
+                                       alarm.description);
         }
     }
 

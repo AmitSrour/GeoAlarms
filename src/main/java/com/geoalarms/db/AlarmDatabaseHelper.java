@@ -27,22 +27,19 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
                     KEY_NAME        + " TEXT, "     +
                     KEY_DESCRIPTION + " TEXT);";
 
-    public AlarmDatabaseHelper () 
-    {
+    public AlarmDatabaseHelper () {
         super(GeoAlarms.getAppContext(), DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) 
-    {
+    public void onCreate(SQLiteDatabase db) {
         db.execSQL(ALARMS_TABLE_CREATE);
     }
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, 
 	                      int oldVersion, 
-	                      int newVersion) 
-	{
+	                      int newVersion) {
 		// TODO Auto-generated method stub
 	}
 
@@ -50,8 +47,9 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
 	                   double latitude, 
 	                   double longitude, 
 	                   String name, 
-	                   String description) 
-	{
+	                   String description) {
+
+	    // get database
 	    SQLiteDatabase db = this.getWritableDatabase();
 
 	    if (db == null) {

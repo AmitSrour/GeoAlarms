@@ -1,6 +1,10 @@
 package com.geoalarms.activity;
 
 import com.geoalarms.R;
+import com.geoalarms.GeoAlarms;
+import com.geoalarms.model.Alarm;
+import com.geoalarms.model.AlarmManager;
+import com.geoalarms.model.Coordinates;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,37 +12,49 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.geoalarms.GeoAlarms;
-import com.geoalarms.model.Alarm;
-
 
 public class AlarmList extends Activity {
 	
-	private LinearLayout alarmlist = null;
+	private LinearLayout alarmlist;
+	private AlarmManager manager;
 	
 	public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.listalarms);
         
-        alarmlist = (LinearLayout) this.findViewById(R.id.alarmlist); 
-     }
+        this.alarmlist = (LinearLayout) this.findViewById(R.id.alarmlist); 
+        this.manager = new AlarmManager();
+    }
 	
 	public void addAlarm(View v){
 		Intent intent = new Intent(AlarmList.this,NewAlarm.class);
-		this.startActivityForResult(intent, GeoAlarms.NEWALARMACTIVITY);
+		this.startActivityForResult(intent, GeoAlarms.NEW_ALARM_ACTIVITY);
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+
 		switch (requestCode) {
-		case GeoAlarms.NEWALARMACTIVITY:
+        // data has been returned from `NewAlarm`
+		case GeoAlarms.NEW_ALARM_ACTIVITY:
 			if (resultCode == RESULT_OK && data != null) {
-				int radioReturned = data.getIntExtra("radio", -1);
-				String nameReturned = data.getStringExtra("name");
-				String descriptionReturned = data.getStringExtra("description");
-				Alarm newalarm = new Alarm(radioReturned, null, nameReturned, descriptionReturned);
-				alarmlist.addView(newalarm.alarmView(this.getApplicationContext()));
+                // radius
+                int radius = data.getIntExtra("radius", 100);
+
+                // coordinates
+                double latitude = data.getDoubleExtra("latitude", 0);
+                double longitude = data.getDoubleExtra("longitude", 0);
+                Coordinates coords = new Coordinates(latitude, longitude);
+
+                // name and description
+                String name = data.getStringExtra("name");
+                String description = data.getStringExtra("description");
+
+                Alarm alarm = new Alarm(radius, coords, name, description);
+                this.manager.add(alarm);
+
+                alarmlist.addView(alarm.alarmView(GeoAlarms.getAppContext()));
 			}
 			break;
 		}
