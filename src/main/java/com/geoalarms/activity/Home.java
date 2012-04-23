@@ -1,4 +1,8 @@
 package com.geoalarms.activity;
+<<<<<<< HEAD
+=======
+
+>>>>>>> ae579da... Added all Id Activities to GeoAlarms to make them commons
 import com.geoalarms.GeoAlarms;
 import com.geoalarms.R;
 import android.app.Activity;

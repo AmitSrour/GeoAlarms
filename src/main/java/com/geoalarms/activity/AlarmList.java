@@ -5,6 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+<<<<<<< HEAD
+
+import com.geoalarms.GeoAlarms;
+import com.geoalarms.R;
+import com.geoalarms.model.Alarm;
+=======
+>>>>>>> ae579da... Added all Id Activities to GeoAlarms to make them commons
 
 import com.geoalarms.GeoAlarms;
 import com.geoalarms.R;
@@ -12,8 +19,10 @@ import com.geoalarms.model.Alarm;
 
 
 
+<<<<<<< HEAD
+=======
 public class AlarmList extends Activity {
-
+>>>>>>> ae579da... Added all Id Activities to GeoAlarms to make them commons
 	
 	private LinearLayout alarmlist = null;
 	
@@ -44,5 +53,8 @@ public class AlarmList extends Activity {
 			break;
 		}
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> ae579da... Added all Id Activities to GeoAlarms to make them commons
 }

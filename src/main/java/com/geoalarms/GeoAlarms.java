@@ -13,6 +13,10 @@ public class GeoAlarms extends Application {
 	public static final int HELPACTIVITY = 4;
 	public static final int NEWALARMACTIVITY = 5;
 	
+<<<<<<< HEAD
+=======
+    @Override
+>>>>>>> ae579da... Added all Id Activities to GeoAlarms to make them commons
     public void onCreate(){
         super.onCreate();
         GeoAlarms.context = getApplicationContext();
