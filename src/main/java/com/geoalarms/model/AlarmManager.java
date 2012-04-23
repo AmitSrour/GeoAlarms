@@ -3,9 +3,6 @@ package com.geoalarms.model;
 import java.util.List;
 import java.util.ArrayList;
 
-
-import android.location.Location;
-
 import com.geoalarms.db.AlarmDatabaseHelper;
 
 public class AlarmManager {
@@ -20,8 +17,8 @@ public class AlarmManager {
         for(Alarm alarm: alarms) {
             try {
                 this.databaseHelper.insert(alarm.radius,
-                                           (float) alarm.location.getLatitude(),
-                                           (float) alarm.location.getLongitude(),
+                                           alarm.coordinates.latitude,
+                                           alarm.coordinates.longitude,
                                            alarm.name,
                                            alarm.description);
             } catch (Exception e) {
@@ -38,7 +35,7 @@ public class AlarmManager {
 
     }
 
-    public List<Alarm> getAlarmsWithinRadius(Location location, int radius) {
+    public List<Alarm> getAlarmsWithinRadius(Coordinates coordinates, int radius) {
         List<Alarm> alarms =  new ArrayList<Alarm>();
         return alarms;
     }

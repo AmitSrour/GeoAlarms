@@ -1,12 +1,15 @@
 package com.geoalarms.activity;
+
 import com.geoalarms.R;
+import com.geoalarms.model.AlarmManager;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 public class Home extends Activity {
-	/** Called when the activity is first created. */
+
 	private final int MAPACTIVITY = 1;
 	private final int ALARMLISTACTIVITY = 2;
 	private final int PREFERENCESACTIVITY = 3;
@@ -16,6 +19,8 @@ public class Home extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dashboard);
+
+		AlarmManager alarms = new AlarmManager();
 	}
 
 	public void toMap(View v) {
