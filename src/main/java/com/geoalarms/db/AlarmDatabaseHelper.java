@@ -78,4 +78,55 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
             db.close();
         }
     }
+
+	public void update(int radius, 
+	                   double latitude, 
+	                   double longitude, 
+	                   String name, 
+	                   String description) {
+
+	    // get database
+	    SQLiteDatabase db = this.getWritableDatabase();
+
+	    if (db == null) {
+	        // TODO: throw an exception 
+	        return;
+        } else {
+            
+            // surround strings with `'`
+            String nameField = "'" + name + "'";
+            String descriptionField = "'" + description + "'";
+
+            // update SQL statement
+            db.execSQL("UPDATE " + DATABASE_NAME + " SET " + 
+                            KEY_RADIUS + "=" + radius + 
+                            KEY_LATITUDE + "=" + latitude +  
+                            KEY_LONGITUDE + "=" + longitude + 
+                            KEY_NAME + "=" + nameField +  
+                            KEY_DESCRIPTION + "=" + descriptionField  +
+                                " WHERE " + KEY_NAME + "=" + nameField);
+
+            db.close();
+        }
+    }
+
+	public void delete(String name) {
+	    // get database
+	    SQLiteDatabase db = this.getWritableDatabase();
+
+        if (db == null) {
+            // TODO: throw an exception 
+            return;
+        } else {
+            // surround strings with `'`
+            String nameField = "'" + name + "'";
+
+            // update SQL statement
+            db.execSQL("DELETE FROM " + DATABASE_NAME + 
+                        " WHERE" + 
+                            KEY_NAME + "=" + nameField);
+
+            db.close();
+        }
+    }
 }
