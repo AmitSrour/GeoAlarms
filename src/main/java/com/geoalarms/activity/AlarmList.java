@@ -1,5 +1,9 @@
 package com.geoalarms.activity;
 
+import java.lang.RuntimeException;
+
+import java.util.List;
+
 import com.geoalarms.R;
 import com.geoalarms.GeoAlarms;
 import com.geoalarms.model.Alarm;
@@ -12,12 +16,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
-
 public class AlarmList extends Activity {
 	
 	private LinearLayout alarmlist;
 	private AlarmManager manager;
 	
+	@Override
 	public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -25,6 +29,11 @@ public class AlarmList extends Activity {
         
         this.alarmlist = (LinearLayout) this.findViewById(R.id.alarmlist); 
         this.manager = new AlarmManager();
+
+        List<Alarm> alarms = this.manager.getAllAlarms();
+        for (Alarm alarm: alarms) {
+            this.alarmlist.addView(alarm.alarmView(GeoAlarms.getAppContext()));
+        }
     }
 	
 	public void addAlarm(View v){
@@ -54,7 +63,7 @@ public class AlarmList extends Activity {
                 Alarm alarm = new Alarm(radius, coords, name, description);
                 this.manager.add(alarm);
 
-                alarmlist.addView(alarm.alarmView(GeoAlarms.getAppContext()));
+                this.alarmlist.addView(alarm.alarmView(GeoAlarms.getAppContext()));
 			}
 			break;
 		}

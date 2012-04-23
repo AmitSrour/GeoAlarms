@@ -143,16 +143,14 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
 	    // get database
 	    SQLiteDatabase db = this.getReadableDatabase();
         
-        
-        //Cursor cursor = db.query(DATABASE_NAME,
-                                 //KEYS,
-                                 //null,
-                                 //null,
-                                 //null,
-                                 //null,
-                                 //null);
-        Cursor cursor = db.rawQuery("SELECT radius, latitude, longitude, name, description FROM" + DATABASE_NAME + ";",
-                                    null);
+        Cursor cursor = db.query(DATABASE_NAME,
+                                 KEYS,
+                                 null,
+                                 null,
+                                 null,
+                                 null,
+                                 null,
+                                 null);
 
         db.close();
 
