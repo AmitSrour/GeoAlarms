@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 
 public class Home extends Activity {
-	/** Called when the activity is first created. */
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -22,21 +21,21 @@ public class Home extends Activity {
 
 	public void toMap(View v) {
 		Intent intent = new Intent(Home.this, Map.class);
-		this.startActivityForResult(intent, GeoAlarms.MAPACTIVITY);
+		this.startActivityForResult(intent, GeoAlarms.MAP_ACTIVITY);
 	}
 	
 	public void toAlarmsList(View v) {
 		Intent intent = new Intent(Home.this, AlarmList.class);
-		this.startActivityForResult(intent, GeoAlarms.ALARMLISTACTIVITY);
+		this.startActivityForResult(intent, GeoAlarms.ALARM_LIST_ACTIVITY);
 	}
 	
 	public void toPreferences(View v) {
 		Intent intent = new Intent(Home.this, Preferences.class);
-		this.startActivityForResult(intent, GeoAlarms.PREFERENCESACTIVITY);
+		this.startActivityForResult(intent, GeoAlarms.PREFERENCES_ACTIVITY);
 	}
 	
 	public void toHelp(View v) {
 		Intent intent = new Intent(Home.this, Help.class);
-		this.startActivityForResult(intent, GeoAlarms.HELPACTIVITY);
+		this.startActivityForResult(intent, GeoAlarms.HELP_ACTIVITY);
 	}
 }
