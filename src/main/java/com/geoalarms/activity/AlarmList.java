@@ -42,8 +42,6 @@ public class AlarmList extends Activity {
 				String descriptionReturned = data.getStringExtra("description");
 				Alarm newalarm = new Alarm(radioReturned, null, nameReturned, descriptionReturned);
 				alarmlist.addView(newalarm.alarmView(this.getApplicationContext()));
-				alarmlist.addView(newalarm.alarmView(this.getApplicationContext()));
-				alarmlist.addView(newalarm.alarmView(this.getApplicationContext()));
 			}
 			break;
 		}
