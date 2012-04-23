@@ -1,5 +1,5 @@
-package com.bandoleros.geoalarms.activity;
-import com.bandoleros.geoalarms.R;
+package com.geoalarms.activity;
+import com.geoalarms.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
