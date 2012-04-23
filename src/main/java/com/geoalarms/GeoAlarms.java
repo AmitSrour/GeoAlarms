@@ -7,9 +7,10 @@ public class GeoAlarms extends Application {
 
     private static Context context;
 
+    @Override
     public void onCreate(){
         super.onCreate();
-        GeoAlarms.context = getApplicationContext();
+        GeoAlarms.context = this.getApplicationContext();
     }
 
     public static Context getAppContext() {

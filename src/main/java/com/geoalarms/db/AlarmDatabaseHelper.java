@@ -7,9 +7,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class AlarmDatabaseHelper extends SQLiteOpenHelper {
 
-    // use database version 0 for development
+    // database info
     private static final String DATABASE_NAME = "alarms";
-    private static final int DATABASE_VERSION = 0;
+    private static final int DATABASE_VERSION = 1;
 
     // keys
     private static final String KEY_RADIUS = "radius";
@@ -47,8 +47,8 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	public void insert(int radius, 
-	                   float latitude, 
-	                   float longitude, 
+	                   double latitude, 
+	                   double longitude, 
 	                   String name, 
 	                   String description) 
 	{
@@ -59,8 +59,11 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
 	        return;
         } else {
             
+            String nameField = "'" + name + "'";
+            String descriptionField = "'" + description + "'";
+
             // database connection succesfully opened
-            db.execSQL("INSERT INTO " + DATABASE_NAME + "(" + 
+            db.execSQL("INSERT INTO " + DATABASE_NAME + " (" + 
                             KEY_RADIUS + ", " +
                             KEY_LATITUDE + ", " + 
                             KEY_LONGITUDE + ", " + 
@@ -70,10 +73,9 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
                                 radius + ", " +
                                 latitude + ", " + 
                                 longitude + ", " + 
-                                name + ", " +
-                                description + ")");
+                                nameField + ", " +
+                                descriptionField + ")");
             db.close();
         }
-
     }
 }
