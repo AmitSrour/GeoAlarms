@@ -2,6 +2,8 @@ package com.geoalarms.db;
 
 import com.geoalarms.GeoAlarms;
 
+import android.database.Cursor;
+
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -24,7 +26,7 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
                     KEY_RADIUS      + " INTEGER,"   +
                     KEY_LATITUDE    + " REAL,"      +
                     KEY_LONGITUDE   + " REAL, "     +
-                    KEY_NAME        + " TEXT, "     +
+                    KEY_NAME        + " TEXT UNIQUE, "     +
                     KEY_DESCRIPTION + " TEXT);";
 
     public AlarmDatabaseHelper () {
@@ -128,5 +130,26 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
 
             db.close();
         }
+    }
+
+    public Cursor all(String groupBy,
+                      String orderBy) {
+	    // get database
+	    SQLiteDatabase db = this.getReadableDatabase();
+        
+        
+        Cursor cursor = db.query(true,                      // distinct alarms 
+                                 DATABASE_NAME,             // table
+                                 null,                      // columns (all)
+                                 null,                      // selection
+                                 null,                      // selectionArgs
+                                 groupBy,                   // group by
+                                 null,                      // having
+                                 orderBy,                   // order by
+                                 null);                     // limit
+
+        db.close();
+
+        return cursor;
     }
 }
