@@ -24,7 +24,7 @@ public class NewAlarm extends MapActivity {
 	private Spinner radioSpinner = null;
 	private TextView alarmName = null;
 	private TextView alarmDescription = null;
-	
+	private int[] numericalItems = null;
 	public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -38,6 +38,7 @@ public class NewAlarm extends MapActivity {
         alarmDescription = (TextView) this.findViewById(R.id.descriptionAlarmTextView);
         
         String[] items = new String[] {"1", "10", "20", "30", "40", "50"};
+        numericalItems = new int[] {1, 10, 20, 30, 40, 50};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                     android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -57,10 +58,11 @@ public class NewAlarm extends MapActivity {
 	
 	public void onSubmit(View v){
 		Intent in = new Intent();
-		String radio = radioSpinner.getSelectedItem().toString();
+		int pos = radioSpinner.getSelectedItemPosition();
+		int radius = numericalItems[pos];
 		String name = alarmName.getText().toString();
 		String description = alarmDescription.getText().toString();
-		in.putExtra("radio", radio);
+		in.putExtra("radio", radius);
 		in.putExtra("name", name);
 		in.putExtra("description", description);
 		this.setResult(RESULT_OK, in);
