@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.geoalarms.R;
 import com.geoalarms.model.MapOverlay;
+import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
@@ -25,6 +27,7 @@ public class NewAlarm extends MapActivity {
 	private TextView alarmName = null;
 	private TextView alarmDescription = null;
 	private int[] numericalItems = null;
+	private GeoPoint point = null;
 
 	public void onCreate(Bundle savedInstanceState)
     {
@@ -52,21 +55,29 @@ public class NewAlarm extends MapActivity {
 	}
 	
 	public void markCenter(View v){
-		MapOverlay om = new MapOverlay(mapView.getMapCenter());
+		this.point = mapView.getMapCenter();
+		MapOverlay om = new MapOverlay(this.point);
 		mapView.invalidate();
 		layers.add(om);
 	}
 	
 	public void onSubmit(View v){
-		Intent in = new Intent();
-		int pos = radioSpinner.getSelectedItemPosition();
-		int radius = numericalItems[pos];
-		String name = alarmName.getText().toString();
-		String description = alarmDescription.getText().toString();
-		in.putExtra("radio", radius);
-		in.putExtra("name", name);
-		in.putExtra("description", description);
-		this.setResult(RESULT_OK, in);
-		finish();
+		if (this.point != null && !alarmName.getText().toString().equals("")){
+			Intent in = new Intent();
+			int pos = radioSpinner.getSelectedItemPosition();
+			int radius = numericalItems[pos];
+			String name = alarmName.getText().toString();
+			String description = alarmDescription.getText().toString();
+			in.putExtra("longitude", this.point.getLongitudeE6());
+			in.putExtra("latitude", this.point.getLatitudeE6());
+			in.putExtra("radio", radius);
+			in.putExtra("name", name);
+			in.putExtra("description", description);
+			this.setResult(RESULT_OK, in);
+			finish();	
+		}else{
+			Toast toast = Toast.makeText(getApplicationContext(), "Pin a point and Introduce name", Toast.LENGTH_SHORT);
+			toast.show();
+		}
 	}
 }

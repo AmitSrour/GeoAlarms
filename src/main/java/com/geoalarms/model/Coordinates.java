@@ -3,7 +3,7 @@ package com.geoalarms.model;
 import android.location.Location;
 
 
-class Coordinates {
+public class Coordinates {
     public double latitude;
     public double longitude;
 
