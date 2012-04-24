@@ -5,28 +5,28 @@ import com.google.android.maps.GeoPoint;
 import android.location.Location;
 
 public class Coordinates {
-    public double latitude;
-    public double longitude;
+    // in microdegrees
+    public int latitude;
+    public int longitude;
 
     private static final int E6 = 1000000;
 
-    public Coordinates(double lat, double lon) {
+    public Coordinates(int lat, int lon) {
         this.latitude = lat;
         this.longitude = lon;
     }
 
     public Coordinates(Location location) {
-        this.latitude = location.getLatitude();
-        this.longitude = location.getLongitude();
+        this.latitude = (int) (location.getLatitude() * Coordinates.E6);
+        this.longitude = (int) (location.getLongitude() * Coordinates.E6);
     }
     
     public Coordinates(GeoPoint point) {
-        this.latitude = point.getLatitudeE6() / Coordinates.E6;
-        this.longitude = point.getLongitudeE6() / Coordinates.E6;
+        this.latitude = point.getLatitudeE6();
+        this.longitude = point.getLongitudeE6();
     }
 
     public GeoPoint toGeoPoint() {
-        return new GeoPoint((int) this.latitude * Coordinates.E6,
-                            (int) this.longitude * Coordinates.E6);
+        return new GeoPoint(this.latitude, this.longitude);
     }
 }

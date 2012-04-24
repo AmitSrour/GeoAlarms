@@ -32,8 +32,8 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
     private static final String ALARMS_TABLE_CREATE =
                 "CREATE TABLE "     + DATABASE_NAME + " (" +
                     KEY_RADIUS      + " INTEGER NOT NULL,"   +
-                    KEY_LATITUDE    + " REAL NOT NULL,"      +
-                    KEY_LONGITUDE   + " REAL NOT NULL, "     +
+                    KEY_LATITUDE    + " INTEGER NOT NULL,"      +
+                    KEY_LONGITUDE   + " INTEGER NOT NULL, "     +
                     KEY_NAME        + " TEXT UNIQUE, "     +
                     KEY_DESCRIPTION + " TEXT);";
 
@@ -54,8 +54,8 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	public void insert(int radius, 
-	                   double latitude, 
-	                   double longitude, 
+	                   int latitude, 
+	                   int longitude, 
 	                   String name, 
 	                   String description) {
 
@@ -90,8 +90,8 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
 
 	public void update(String oldName,
 	                   int radius, 
-	                   double latitude, 
-	                   double longitude, 
+	                   int latitude, 
+	                   int longitude, 
 	                   String name, 
 	                   String description) {
 

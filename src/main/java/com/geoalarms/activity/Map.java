@@ -15,7 +15,6 @@ import com.geoalarms.GeoAlarms;
 import com.geoalarms.map.PointOverlay;
 import com.geoalarms.map.AlarmOverlay;
 import com.geoalarms.model.Alarm;
-import com.geoalarms.model.Coordinates;
 
 
 

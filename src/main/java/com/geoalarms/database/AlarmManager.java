@@ -125,8 +125,8 @@ public class AlarmManager {
         int id = cursor.getInt(0);
         int radius = cursor.getInt(1);
 
-        double latitude = cursor.getDouble(2);
-        double longitude = cursor.getDouble(3);
+        int latitude = cursor.getInt(2);
+        int longitude = cursor.getInt(3);
         Coordinates coords = new Coordinates(latitude, longitude);
 
         String name = cursor.getString(4);
