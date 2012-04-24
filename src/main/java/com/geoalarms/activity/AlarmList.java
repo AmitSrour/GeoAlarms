@@ -114,7 +114,9 @@ public class AlarmList extends Activity {
                                  coords,
                                  name,
                                  description);
-					GeoAlarms.alarmManager.update(oldName, alarm);
+                    GeoAlarms.alarmManager.delete(alarm);
+                    GeoAlarms.alarmManager.add(alarm);
+					//GeoAlarms.alarmManager.update(oldName, alarm);
 				}
                 // update proximity alerts
 			    GeoAlarms.locationListener.resetProximityAlerts();
