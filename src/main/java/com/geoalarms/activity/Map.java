@@ -13,6 +13,7 @@ import com.google.android.maps.Overlay;
 import com.geoalarms.R;
 import com.geoalarms.GeoAlarms;
 import com.geoalarms.map.PointOverlay;
+import com.geoalarms.map.AlarmOverlay;
 import com.geoalarms.model.Alarm;
 import com.geoalarms.model.Coordinates;
 
@@ -32,7 +33,6 @@ public class Map extends MapActivity {
 
         this.mapView = (MapView) this.findViewById(R.id.mapView);
         this.layers = mapView.getOverlays(); 
-        this.alarms = GeoAlarms.alarmManager.getAllAlarms();
 
         this.drawAlarms();
     }
@@ -49,15 +49,18 @@ public class Map extends MapActivity {
 
 	public void drawPoint(GeoPoint geoPoint) {
 		PointOverlay om = new PointOverlay(geoPoint);
+        // force view to refresh
 		mapView.invalidate();
-		layers.add(om);
+		this.layers.add(om);
     }
 
     public void drawAlarms() {
-        for (Alarm alarm: this.alarms) {
-            Coordinates coords = alarm.coordinates;
-            GeoPoint point = coords.toGeoPoint();
-            this.drawPoint(point);
+        this.alarms = GeoAlarms.alarmManager.getAllAlarms();
+        for (Alarm alarm: alarms) {
+            AlarmOverlay alarmOverlay = new AlarmOverlay(alarm);
+            // force view to refresh
+            mapView.invalidate();
+            this.layers.add(alarmOverlay);
         }
     }
 }
