@@ -97,7 +97,7 @@ public class AlarmList extends Activity {
 				    alarm = new Alarm(radius, coords, name, description);
 				    GeoAlarms.alarmManager.add(alarm);
 	                // update proximity alerts
-				    GeoAlarms.locationListener.resetProximityAlert();
+				    GeoAlarms.locationListener.resetProximityAlerts();
 				    return;
                 }
 
@@ -117,7 +117,7 @@ public class AlarmList extends Activity {
 					GeoAlarms.alarmManager.update(oldName, alarm);
 				}
                 // update proximity alerts
-			    GeoAlarms.locationListener.resetProximityAlert();
+			    GeoAlarms.locationListener.resetProximityAlerts();
 			}
 
 			break;

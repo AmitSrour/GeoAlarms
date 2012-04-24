@@ -9,6 +9,7 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
+import com.google.android.maps.MyLocationOverlay;
 
 import com.geoalarms.R;
 import com.geoalarms.GeoAlarms;
@@ -31,7 +32,12 @@ public class Map extends MapActivity {
         setContentView(R.layout.map);
 
         this.mapView = (MapView) this.findViewById(R.id.mapView);
-        this.layers = mapView.getOverlays(); 
+        this.mapView.setBuiltInZoomControls(true);
+
+        this.layers = this.mapView.getOverlays();
+
+        // add user's location
+        this.addMyLocation();
     }
 
 	@Override
@@ -61,6 +67,7 @@ public class Map extends MapActivity {
 
     public void drawAlarms() {
         this.layers.clear();
+        this.addMyLocation();
         this.alarms = GeoAlarms.alarmManager.getAllAlarms();
 
         for (Alarm alarm: alarms) {
@@ -69,5 +76,12 @@ public class Map extends MapActivity {
             mapView.invalidate();
             this.layers.add(alarmOverlay);
         }
+    }
+
+    public void addMyLocation() {
+        MyLocationOverlay myLocation = new MyLocationOverlay(GeoAlarms.context,
+                                                             this.mapView);
+        myLocation.enableMyLocation();
+        this.layers.add(myLocation); 
     }
 }

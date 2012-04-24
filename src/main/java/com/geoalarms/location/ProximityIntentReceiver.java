@@ -45,9 +45,6 @@ public class ProximityIntentReceiver extends BroadcastReceiver {
 	    }
 	    
 	    private Notification createNotification() {
-	    	
-	    	
-	    	
 	        Notification notification = new Notification();
 	        
 	        notification.icon = R.drawable.ic_menu_agenda;

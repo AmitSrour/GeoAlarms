@@ -12,16 +12,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapView;
+import com.google.android.maps.Overlay;
+import com.google.android.maps.MyLocationOverlay;
+
+
 import com.geoalarms.GeoAlarms;
 import com.geoalarms.R;
 import com.geoalarms.map.PointOverlay;
 import com.geoalarms.map.AlarmOverlay;
 import com.geoalarms.model.Alarm;
 import com.geoalarms.model.Coordinates;
-import com.google.android.maps.GeoPoint;
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapView;
-import com.google.android.maps.Overlay;
+
 
 public class AlarmEditor extends MapActivity {
 
@@ -46,6 +50,12 @@ public class AlarmEditor extends MapActivity {
 		// mapView
 		mapView = (MapView) this.findViewById(R.id.mapView);
 		layers = mapView.getOverlays();
+
+		// add user's location
+		MyLocationOverlay myLocation = new MyLocationOverlay(GeoAlarms.context,
+		                                                     mapView);
+		myLocation.enableMyLocation();
+		layers.add(myLocation);
 
 		// Radio Spinner
 		radioSpinner = (Spinner) this.findViewById(R.id.spinner1);

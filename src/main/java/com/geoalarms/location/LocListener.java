@@ -18,6 +18,7 @@ import com.geoalarms.activity.Map;
 import com.geoalarms.model.Alarm;
 
 public class LocListener implements LocationListener {
+
 	private LocationManager locManager;
 	private PendingIntent pendingIntent;
 	private final int NOEXPIRATION = -1;
@@ -28,18 +29,22 @@ public class LocListener implements LocationListener {
 
 		// Initialize the pending intent
 		Intent intent = new Intent(GeoAlarms.PROX_ALERT_INTENT);
-		pendingIntent = PendingIntent.getBroadcast(GeoAlarms.context, 0,
-				intent, 0);
+		pendingIntent = PendingIntent.getBroadcast(GeoAlarms.context, 
+		                                           0,
+				                                   intent, 
+				                                   0);
 
 		// Provider location by GPS, minimum time 1000ms, minimum distance 1
 		// foot
-		locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100,
-				1f, this);
+		locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 
+		                                  1000,
+				                          1f, 
+				                          this);
 		locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
 				100, 1f, this);
 
 		// Set a proximity alert to every alarm in the system
-		addAllProximityAlert();
+		addAllProximityAlerts();
 	}
 
 	public void onLocationChanged(Location location) {
@@ -93,18 +98,20 @@ public class LocListener implements LocationListener {
 				filter);
 	}
 
-	public void resetProximityAlert() {
+	public void resetProximityAlerts() {
 		locManager.removeProximityAlert(pendingIntent);
-		addAllProximityAlert();
+		addAllProximityAlerts();
 	}
 
-	private void addAllProximityAlert() {
+	private void addAllProximityAlerts() {
 		List<Alarm> alarms = GeoAlarms.alarmManager.getAllAlarms();
 
 		for (Alarm alarm : alarms) {
 			addProximityAlert(alarm.coordinates.getLatitude(),
-					alarm.coordinates.getLongitude(), alarm.radius,
-					NOEXPIRATION, pendingIntent);
+					          alarm.coordinates.getLongitude(), 
+					          alarm.radius,
+					          NOEXPIRATION, 
+					          this.pendingIntent);
 		}
 	}
 }
