@@ -46,7 +46,7 @@
         </activity>
         
         <!-- NewAlarm -->
-        <activity android:name=".activity.NewAlarm"
+        <activity android:name=".activity.AlarmEditor"
             	  android:label="@string/help_view_name">
         </activity>
 

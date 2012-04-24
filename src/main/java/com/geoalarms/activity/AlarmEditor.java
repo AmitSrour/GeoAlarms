@@ -20,7 +20,7 @@ import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 
-public class NewAlarm extends MapActivity {
+public class AlarmEditor extends MapActivity {
 
 	private MapView mapView = null;
 	private List<Overlay> layers = null;

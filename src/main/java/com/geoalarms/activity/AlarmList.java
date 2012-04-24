@@ -41,7 +41,7 @@ public class AlarmList extends Activity {
 	}
 
 	public void addAlarm(View v) {
-		Intent intent = new Intent(AlarmList.this, NewAlarm.class);
+		Intent intent = new Intent(AlarmList.this, AlarmEditor.class);
 		this.startActivityForResult(intent, GeoAlarms.NEW_ALARM_ACTIVITY);
 	}
 
