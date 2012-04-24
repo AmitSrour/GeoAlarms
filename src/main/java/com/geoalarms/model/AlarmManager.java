@@ -72,10 +72,10 @@ public class AlarmManager {
         }
 
         if (cursor.moveToFirst()) {
-            while (cursor.moveToNext()) {
+            do  {
                 Alarm alarm = this.alarmFromCursor(cursor);
                 alarms.add(alarm);
-            }
+            } while (cursor.moveToNext());
         }
 
         db.close();
