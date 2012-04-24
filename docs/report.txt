@@ -100,14 +100,34 @@ database
 
 This package is intended to encapsulate the persistence logic of `GeoAlarms`. It
 contains only two classes:
-- `
+- `AlarmDatabaseHelper` extends `SQLiteOpenHelper` and contains the database
+  information and the basic operations: insert, update and delete.
+- `AlarmManager` is the high-level interface to the database, it exposes 
+  CRUD (Create, Read, Delete and Update) operations and takes care of the 
+  necessary conversions between relational data and Java objects.
 
 location
 --------
 
+
 map
 ---
 
+The classes contained here are related to the map plotting. They are no more than
+custom overlay items:
+
+- `AlarmOverlay` is the overlay used for painting the alarm. It's the representation
+  of `Alarm` objects in a map. This class takes care of drawing a pin in the 
+  exact point where the alarm is located, and also draws a circle representing the
+  radius of the notification.
+- `PointOverlay` is the overlay used for painting a colorful dot in the map.
+
+
 model
 -----
+
+This package contains the data structures used in the application:
+
+- `Alarm` objects store information about an alarm.
+- `Coordinates` objects encapsulate the alarm coordinates.
 
