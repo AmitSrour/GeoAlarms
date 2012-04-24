@@ -1,34 +1,43 @@
 package com.geoalarms.activity;
 
-import com.geoalarms.R;
-import com.geoalarms.GeoAlarms;
-import com.geoalarms.model.Alarm;
-import com.geoalarms.model.AlarmManager;
-import com.geoalarms.model.Coordinates;
+import java.util.LinkedList;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import com.geoalarms.GeoAlarms;
+import com.geoalarms.R;
+import com.geoalarms.model.Alarm;
+import com.geoalarms.model.AlarmManager;
+import com.geoalarms.model.Coordinates;
 
 public class AlarmList extends Activity {
-	
-	private LinearLayout alarmlist;
+
+	private ListView alarmlist;
 	private AlarmManager manager;
-	
-	public void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.listalarms);
-        
-        this.alarmlist = (LinearLayout) this.findViewById(R.id.alarmlist); 
-        this.manager = new AlarmManager();
-    }
-	
-	public void addAlarm(View v){
-		Intent intent = new Intent(AlarmList.this,NewAlarm.class);
+	private ArrayAdapter<String> adapter;
+	private LinkedList<String> values;
+
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.listalarms);
+
+		values = new LinkedList<String>();
+		adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, values);
+
+		this.alarmlist = (ListView) this.findViewById(R.id.alarmlist);
+		alarmlist.setAdapter(adapter);
+
+		this.manager = new AlarmManager();
+	}
+
+	public void addAlarm(View v) {
+		Intent intent = new Intent(AlarmList.this, NewAlarm.class);
 		this.startActivityForResult(intent, GeoAlarms.NEW_ALARM_ACTIVITY);
 	}
 
@@ -36,25 +45,29 @@ public class AlarmList extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		switch (requestCode) {
-        // data has been returned from `NewAlarm`
+		// data has been returned from `NewAlarm`
 		case GeoAlarms.NEW_ALARM_ACTIVITY:
 			if (resultCode == RESULT_OK && data != null) {
-                // radius
-                int radius = data.getIntExtra("radius", 100);
+				// radius
+				int radius = data.getIntExtra("radius", 100);
 
-                // coordinates
-                int latitude = data.getIntExtra("latitude", 0);
-                int longitude = data.getIntExtra("longitude", 0);
-                Coordinates coords = new Coordinates(latitude, longitude);
+				// coordinates
+				int latitude = data.getIntExtra("latitude", 0);
+				int longitude = data.getIntExtra("longitude", 0);
+				Coordinates coords = new Coordinates(latitude, longitude);
 
-                // name and description
-                String name = data.getStringExtra("name");
-                String description = data.getStringExtra("description");
+				// name and description
+				String name = data.getStringExtra("name");
+				String description = data.getStringExtra("description");
 
-                Alarm alarm = new Alarm(radius, coords, name, description);
-                this.manager.add(alarm);
+				// save the alarm object into DB
+				Alarm alarm = new Alarm(radius, coords, name, description);
+				this.manager.add(alarm);
 
-                alarmlist.addView(alarm.alarmView(GeoAlarms.getAppContext()));
+				// update the listview elements
+				values.add(name);
+				adapter.notifyDataSetChanged();
+
 			}
 			break;
 		}
