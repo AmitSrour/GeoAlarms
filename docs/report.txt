@@ -1,0 +1,113 @@
+GeoAlarms
+=========
+
+
+1. Package overview
+2.  
+
+src/main/java/
+└── com
+    └── geoalarms
+        ├── GeoAlarms.java
+        ├── activity
+        │   ├── AlarmEditor.java
+        │   ├── AlarmList.java
+        │   ├── Help.java
+        │   ├── Home.java
+        │   ├── Map.java
+        │   └── Preferences.java
+        ├── database
+        │   ├── AlarmDatabaseHelper.java
+        │   └── AlarmManager.java
+        ├── location
+        │   ├── LocListener.java
+        │   └── ProximityIntentReceiver.java
+        ├── map
+        │   ├── AlarmOverlay.java
+        │   └── PointOverlay.java
+        └── model
+            ├── Alarm.java
+            └── Coordinates.java
+
+7 directories, 15 files
+
+
+GeoAlarms
+---------
+
+For storing the global application data we choose to subclass `Activity` instead
+of implementing a Singleton. `GeoAlarms` subclasses `Activity`. This class gets 
+instantiated when the application starts, after specifying it in
+`AndroidManifest.xml`:
+
+```
+    <application android:name="com.geoalarms.GeoAlarms"
+                 ...
+
+```
+
+`GeoAlarm` contains several static members, which can be divided in:
+- Global application data.
+  - A `Context` object representing the application context.
+  - An `AlarmManager` object which is the interface to the alarm database.
+  - A `LocationListener` subclass used for monitoring the location changes.
+- Activity IDs. These integers are used to represent activities in the intents.
+- Intent return codes. We use them when firing an intent with `startActivityForResult`.
+
+
+activity
+--------
+
+The `activity` package contains all the program activities. 
+
+Home
+~~~~
+
+The `Home` activity is the applications entry point. It shows a dashboard with
+icons for navigating to all the other activities in the application.
+
+Map
+~~~
+
+The `Map` activity shows a map with the alarms plotted into it. Each alarm is
+displayed showing a pin, its name and a circle with the radius in which is 
+activated. 
+
+AlarmList
+~~~~~~~~~
+
+This activity shows a `ListView` with all the alarms that are stored in the
+database. It is possible to open a new activity for creating, editing or
+deleting alarms from this activity.
+
+AlarmEditor
+~~~~~~~~~~~
+
+The `AlarmEditor` activity is used for creating new alarms and editing or deleting
+existing ones. It has text boxes for writing the name and description, a small
+`MapView` to select the location for the alarm and a spinner for selecting the
+notification radius.
+
+Preferences and Help
+~~~~~~~~~~~~~~~~~~~~
+
+This activities are intended to allow customization of the application and show
+program usage information respectively.
+
+
+database
+--------
+
+This package is intended to encapsulate the persistence logic of `GeoAlarms`. It
+contains only two classes:
+- `
+
+location
+--------
+
+map
+---
+
+model
+-----
+

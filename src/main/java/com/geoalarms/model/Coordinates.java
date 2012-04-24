@@ -29,4 +29,12 @@ public class Coordinates {
     public GeoPoint toGeoPoint() {
         return new GeoPoint(this.latitude, this.longitude);
     }
+
+    public double getLatitude() {
+        return this.latitude / Coordinates.E6;
+    }
+
+    public double getLongitude() {
+        return this.longitude / Coordinates.E6;
+    }
 }

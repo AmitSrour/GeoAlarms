@@ -19,6 +19,8 @@ public class GeoAlarms extends Application {
 	public static final int PREFERENCES_ACTIVITY = 3;
 	public static final int HELP_ACTIVITY = 4;
 	public static final int NEW_ALARM_ACTIVITY = 5;
+
+	// intent return codes
 	public static final int UPDATEALARM = 0;
 	public static final int NEWALARM = 1;
 	public static final int REMOVEALARM = 2;
