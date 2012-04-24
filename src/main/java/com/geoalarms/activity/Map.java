@@ -32,6 +32,12 @@ public class Map extends MapActivity {
 
         this.mapView = (MapView) this.findViewById(R.id.mapView);
         this.layers = mapView.getOverlays(); 
+    }
+
+	@Override
+	public void onStart()
+    {
+        super.onStart();
 
         this.drawAlarms();
     }
@@ -54,7 +60,9 @@ public class Map extends MapActivity {
     }
 
     public void drawAlarms() {
+        this.layers.clear();
         this.alarms = GeoAlarms.alarmManager.getAllAlarms();
+
         for (Alarm alarm: alarms) {
             AlarmOverlay alarmOverlay = new AlarmOverlay(alarm);
             // force view to refresh
