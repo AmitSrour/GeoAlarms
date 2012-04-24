@@ -2,9 +2,6 @@ package com.geoalarms.activity;
 
 import java.util.List;
 
-import com.geoalarms.R;
-import com.geoalarms.model.MapOverlay;
-
 import android.os.Bundle;
 import android.view.View;
 
@@ -13,19 +10,31 @@ import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 
+import com.geoalarms.R;
+import com.geoalarms.GeoAlarms;
+import com.geoalarms.map.PointOverlay;
+import com.geoalarms.model.Alarm;
+import com.geoalarms.model.Coordinates;
+
 
 
 public class Map extends MapActivity {
-	private MapView mapView = null;
-	private List<Overlay> layers = null;
-	private GeoPoint point = null;
+
+	private MapView mapView;
+	private List<Overlay> layers;
+	private List<Alarm> alarms;
 	
+	@Override
 	public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map);
-        mapView = (MapView) this.findViewById(R.id.mapView);
-        layers = mapView.getOverlays(); 
+
+        this.mapView = (MapView) this.findViewById(R.id.mapView);
+        this.layers = mapView.getOverlays(); 
+        this.alarms = GeoAlarms.alarmManager.getAllAlarms();
+
+        this.drawAlarms();
     }
 
 	@Override
@@ -34,9 +43,21 @@ public class Map extends MapActivity {
 	}
 	
 	public void markCenter(View v){
-		this.point = mapView.getMapCenter();
-		MapOverlay om = new MapOverlay(this.point);
+        GeoPoint point = mapView.getMapCenter();
+		this.drawPoint(point);
+	}
+
+	public void drawPoint(GeoPoint geoPoint) {
+		PointOverlay om = new PointOverlay(geoPoint);
 		mapView.invalidate();
 		layers.add(om);
-	}
+    }
+
+    public void drawAlarms() {
+        for (Alarm alarm: this.alarms) {
+            Coordinates coords = alarm.coordinates;
+            GeoPoint point = coords.toGeoPoint();
+            this.drawPoint(point);
+        }
+    }
 }
