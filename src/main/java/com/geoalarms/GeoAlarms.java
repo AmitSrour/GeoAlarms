@@ -4,13 +4,14 @@ import android.app.Application;
 import android.content.Context;
 
 import com.geoalarms.database.AlarmManager;
-
+import com.geoalarms.location.LocListener;
 
 public class GeoAlarms extends Application {
 
     // global objects
     public static Context context;
     public static AlarmManager alarmManager;
+    public static LocListener locationManager;
 
     // activity IDs
 	public static final int MAP_ACTIVITY = 1;
@@ -27,5 +28,6 @@ public class GeoAlarms extends Application {
         super.onCreate();
         GeoAlarms.context = this.getApplicationContext();
         GeoAlarms.alarmManager = new AlarmManager();
+        GeoAlarms.locationManager = new LocListener();
     }
 }
