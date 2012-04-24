@@ -8,6 +8,7 @@ import com.geoalarms.db.AlarmDatabaseHelper;
 
 import android.database.Cursor;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 
 public class AlarmManager {
@@ -58,21 +59,38 @@ public class AlarmManager {
 
     public List<Alarm> getAllAlarms() {
         List<Alarm> alarms =  new ArrayList<Alarm>();
-        Cursor cursor = this.databaseHelper.all();
 
-        // return empty list
-        if (!cursor.moveToFirst()) {
-            return alarms;
+	    // get database
+	    SQLiteDatabase db = this.databaseHelper.getReadableDatabase();
+        
+        Cursor cursor = db.rawQuery("SELECT * from alarms", null);
+
+        if (cursor.moveToFirst()) {
+            while (cursor.moveToNext()) {
+                Alarm alarm = this.alarmFromCursor(cursor);
+                alarms.add(alarm);
+            }
         }
 
-        while (cursor.moveToNext()) {
-            Alarm alarm = this.alarmFromCursor(cursor);
-            alarms.add(alarm);
-        }
+        db.close();
 
         return alarms;
     }
 
+    public Alarm getAlarm(String name) {
+        SQLiteDatabase db = this.databaseHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * from alarms WHERE name='" + 
+                                        name + "'", null);
+
+        if (cursor.moveToFirst()) {
+            Alarm alarm = this.alarmFromCursor(cursor);
+            return alarm;
+        }
+
+        return null;
+    }
+
+    // TODO
     public List<Alarm> getAlarmsWithinRadius(Coordinates coordinates, int radius) {
         List<Alarm> alarms =  new ArrayList<Alarm>();
         return alarms;
@@ -96,5 +114,4 @@ public class AlarmManager {
 
         return alarm;
     } 
-
 }
