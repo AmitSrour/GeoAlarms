@@ -3,6 +3,7 @@ package com.geoalarms.location;
 import java.util.List;
 
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.Location;
@@ -12,30 +13,31 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.geoalarms.GeoAlarms;
+import com.geoalarms.activity.Map;
 import com.geoalarms.model.Alarm;
 
 public class LocListener implements LocationListener {
 	private LocationManager locManager;
-	private String PROX_ALERT_INTENT = "com.geoalarms.location.Proximity";
+	private PendingIntent pendingIntent;
+	private final int NOEXPIRATION = -1;
+	
+	private String PROX_ALERT_INTENT = "com.geoalarms.activity.Map";
 
 	public LocListener() {
 		locManager = (LocationManager) GeoAlarms.context
-				.getSystemService(GeoAlarms.context.LOCATION_SERVICE);
-		List<Alarm> alarms = GeoAlarms.alarmManager.getAllAlarms();
-		
-		// Provider location by GPS, minimum time 1000ms, minimumdistance 1 foot
-		locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1f, this);
-		// Open the alarmlist activity when a alert has trigger
-		
+				.getSystemService(Context.LOCATION_SERVICE);
 
+		// Initialize the pending intent
+		Intent intent = new Intent(GeoAlarms.context, Map.class);
+		pendingIntent = PendingIntent.getBroadcast(GeoAlarms.context, 0,
+				intent, 0);
+
+		// Provider location by GPS, minimum time 1000ms, minimum distance 1 foot
+		locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000,
+				1f, this);
+	
 		// Set a proximity alert to every alarm in the system
-		int NoExpiration = -1;
-		int RADIUS = 2000000000;
-		for (Alarm alarm : alarms) {
-			addProximityAlert(alarm.coordinates.latitude,
-					alarm.coordinates.longitude, RADIUS, NoExpiration,
-					PROX_ALERT_INTENT);
-		}
+		addAllProximityAlert();
 	}
 
 	public void onLocationChanged(Location location) {
@@ -63,12 +65,9 @@ public class LocListener implements LocationListener {
 
 	}
 
-	private void addProximityAlert(double latitude, double longitude,
-			int point_radius, int alert_expiration, String PROX_ALERT_INTENT) {
-
-		Intent intent = new Intent(PROX_ALERT_INTENT);
-		PendingIntent proximityIntent = PendingIntent.getBroadcast(
-				GeoAlarms.context, 0, intent, 0);
+	public void addProximityAlert(double latitude, double longitude,
+			int point_radius, int alert_expiration,
+			PendingIntent proximityIntent) {
 
 		locManager.addProximityAlert(latitude, // the latitude of the central
 												// point of the alert region
@@ -85,6 +84,22 @@ public class LocListener implements LocationListener {
 				);
 
 		IntentFilter filter = new IntentFilter(PROX_ALERT_INTENT);
-		GeoAlarms.context.registerReceiver(new ProximityIntentReceiver(), filter);
+		GeoAlarms.context.registerReceiver(new ProximityIntentReceiver(),
+				filter);
+	}
+
+	public void resetProximityAlert(){
+		locManager.removeProximityAlert(pendingIntent);
+		addAllProximityAlert();
+	}
+	
+	private void addAllProximityAlert(){
+		List<Alarm> alarms = GeoAlarms.alarmManager.getAllAlarms();
+
+		for (Alarm alarm : alarms) {
+			addProximityAlert(alarm.coordinates.latitude,
+					alarm.coordinates.longitude, alarm.radius, NOEXPIRATION,
+					pendingIntent);
+		}
 	}
 }

@@ -11,7 +11,7 @@ public class GeoAlarms extends Application {
     // global objects
     public static Context context;
     public static AlarmManager alarmManager;
-    public static LocListener locationManager;
+    public static LocListener locationListener;
 
     // activity IDs
 	public static final int MAP_ACTIVITY = 1;
@@ -30,6 +30,6 @@ public class GeoAlarms extends Application {
         super.onCreate();
         GeoAlarms.context = this.getApplicationContext();
         GeoAlarms.alarmManager = new AlarmManager();
-        GeoAlarms.locationManager = new LocListener();
+        GeoAlarms.locationListener = new LocListener();
     }
 }

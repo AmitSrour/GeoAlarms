@@ -4,26 +4,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/statusBar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="10"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Status" />
-        <Button
-            android:id="@+id/markCenterButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="markCenter"
-            android:text="Mark center" />
-    </LinearLayout>
-
     <com.google.android.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="fill_parent"
