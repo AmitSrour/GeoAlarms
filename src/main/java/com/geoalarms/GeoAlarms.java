@@ -1,15 +1,18 @@
 package com.geoalarms;
 
-import com.geoalarms.model.AlarmManager;
-
 import android.app.Application;
 import android.content.Context;
 
+import com.geoalarms.database.AlarmManager;
+
+
 public class GeoAlarms extends Application {
 
+    // global objects
     public static Context context;
     public static AlarmManager alarmManager;
 
+    // activity IDs
 	public static final int MAP_ACTIVITY = 1;
 	public static final int ALARM_LIST_ACTIVITY = 2;
 	public static final int PREFERENCES_ACTIVITY = 3;
@@ -21,10 +24,5 @@ public class GeoAlarms extends Application {
         super.onCreate();
         GeoAlarms.context = this.getApplicationContext();
         GeoAlarms.alarmManager = new AlarmManager();
-    }
-
-    // TODO: we can remove this and do `GeoAlarms.context` instead
-    public static Context getAppContext() {
-        return GeoAlarms.context;
     }
 }
