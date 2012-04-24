@@ -1,18 +1,17 @@
-package com.geoalarms.model;
+package com.geoalarms.database;
 
 import java.util.List;
 import java.util.ArrayList;
 
+import com.geoalarms.model.Alarm;
 import com.geoalarms.model.Coordinates;
-import com.geoalarms.db.AlarmDatabaseHelper;
 
 import android.database.Cursor;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 
-public class AlarmManager {
-
+public class AlarmManager { 
     private AlarmDatabaseHelper databaseHelper;
 
     public AlarmManager() {
@@ -50,6 +49,7 @@ public class AlarmManager {
     public void delete(Alarm... alarms) {
         try {
             for (Alarm alarm: alarms) {
+                // TODO: delete with ID ?
                 this.databaseHelper.delete(alarm.name);
             }
             } catch (SQLiteException e) {

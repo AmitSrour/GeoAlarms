@@ -1,4 +1,4 @@
-package com.geoalarms.db;
+package com.geoalarms.database;
 
 import com.geoalarms.GeoAlarms;
 
@@ -36,7 +36,7 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
                     KEY_DESCRIPTION + " TEXT);";
 
     public AlarmDatabaseHelper () {
-        super(GeoAlarms.getAppContext(), DATABASE_NAME, null, DATABASE_VERSION);
+        super(GeoAlarms.context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override

@@ -24,4 +24,9 @@ public class Coordinates {
         this.latitude = point.getLatitudeE6() / Coordinates.E6;
         this.longitude = point.getLongitudeE6() / Coordinates.E6;
     }
+
+    public GeoPoint toGeoPoint() {
+        return new GeoPoint((int) this.latitude * Coordinates.E6,
+                            (int) this.longitude * Coordinates.E6);
+    }
 }

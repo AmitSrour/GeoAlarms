@@ -41,7 +41,7 @@
                 android:onClick="toMap" >
 
                 <ImageView
-                    android:src="@drawable/map_pin_icon"
+                    android:src="@drawable/map_icon"
                     android:id="@+id/mapButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

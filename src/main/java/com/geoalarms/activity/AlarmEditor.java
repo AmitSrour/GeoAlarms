@@ -2,10 +2,7 @@ package com.geoalarms.activity;
 
 import java.util.List;
 
-import com.google.android.maps.GeoPoint;
-
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,9 +10,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.geoalarms.R;
-import com.geoalarms.model.MapOverlay;
-import com.geoalarms.model.Coordinates;
+import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
@@ -57,37 +52,37 @@ public class AlarmEditor extends MapActivity {
 	
 	public void markCenter(View v){
 		this.point = mapView.getMapCenter();
-		MapOverlay om = new MapOverlay(this.point);
+		PointOverlay om = new PointOverlay(this.point);
 		mapView.invalidate();
 		layers.add(om);
 	}
 	
 	public void onSubmit(View v){
 		if (this.point != null && !alarmName.getText().toString().equals("")){
-		Intent in = new Intent();
+            Intent in = new Intent();
 
-		// radius
-		int pos = radioSpinner.getSelectedItemPosition();
-		int radius = numericalItems[pos];
+            // radius
+            int pos = radioSpinner.getSelectedItemPosition();
+            int radius = numericalItems[pos];
 
-		// coordinates
-        GeoPoint center = mapView.getMapCenter();
-        // TODO: convert this in custom `MapView` class?
-        Coordinates coords = new Coordinates(center);
+            // coordinates
+            GeoPoint center = mapView.getMapCenter();
+            // TODO: convert this in custom `MapView` class?
+            Coordinates coords = new Coordinates(center);
 
-        // name and description
-		String name = alarmName.getText().toString();
-		String description = alarmDescription.getText().toString();
+            // name and description
+            String name = alarmName.getText().toString();
+            String description = alarmDescription.getText().toString();
 
-		// send data back
-		in.putExtra("radius", radius);
-		in.putExtra("latitude", coords.latitude);
-		in.putExtra("longitude", coords.longitude);
-		in.putExtra("name", name);
-		in.putExtra("description", description);
-		this.setResult(RESULT_OK, in);
-		finish();
-		}else{
+            // send data back
+            in.putExtra("radius", radius);
+            in.putExtra("latitude", coords.latitude);
+            in.putExtra("longitude", coords.longitude);
+            in.putExtra("name", name);
+            in.putExtra("description", description);
+            this.setResult(RESULT_OK, in);
+            finish();
+		} else {
 			Toast toast = Toast.makeText(getApplicationContext(), "Pin a point and Introduce name", Toast.LENGTH_SHORT);
 			toast.show();
 		}

@@ -56,8 +56,8 @@ public class AlarmList extends Activity {
 				int radius = data.getIntExtra("radius", 100);
 
 				// coordinates
-				int latitude = data.getIntExtra("latitude", 0);
-				int longitude = data.getIntExtra("longitude", 0);
+				double latitude = data.getDoubleExtra("latitude", 0);
+				double longitude = data.getDoubleExtra("longitude", 0);
 				Coordinates coords = new Coordinates(latitude, longitude);
 
 				// name and description
