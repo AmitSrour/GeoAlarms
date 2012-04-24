@@ -37,14 +37,14 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:layout_weight="1"
-                android:orientation="vertical" >
+                android:orientation="vertical" 
+                android:onClick="toMap" >
 
-                <Button
+                <ImageView
+                    android:src="@drawable/map_pin_icon"
                     android:id="@+id/mapButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="toMap"
-                    android:text="Map" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/mapLabel"
@@ -60,13 +60,14 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:layout_weight="1"
-                android:orientation="vertical" >
+                android:orientation="vertical" 
+                android:onClick="toAlarmsList" >
 
-                <Button
+                <ImageView
+                    android:src="@drawable/list_icon"
                     android:id="@+id/alarmbutton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="toAlarmsList"
                     android:text="Alarm" />
 
                 <TextView
@@ -92,13 +93,14 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:layout_weight="1"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:onClick="toPreferences"  >
 
-                <Button
+                <ImageView
                     android:id="@+id/prefsButton"
+                    android:src="@drawable/settings_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="toPreferences"
                     android:text="preferences" />
 
                 <TextView
@@ -116,13 +118,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:onClick="toHelp" >
 
-                <Button
+                <ImageView
                     android:id="@+id/helpButton"
+                    android:src="@drawable/help_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="toHelp"
                     android:text="Help" />
 
                 <TextView
