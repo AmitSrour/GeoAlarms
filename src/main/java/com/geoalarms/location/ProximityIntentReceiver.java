@@ -1,5 +1,7 @@
 package com.geoalarms.location;
 
+import com.geoalarms.GeoAlarms;
+
 import android.R;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -15,7 +17,6 @@ public class ProximityIntentReceiver extends BroadcastReceiver {
 	     
 	    private static final int NOTIFICATION_ID = 1000;
 
-		private String PROX_ALERT_INTENT = "com.geoalarms.activity.AlarmList";
 	    @Override
 	    public void onReceive(Context context, Intent intent) {
 	         
@@ -32,11 +33,9 @@ public class ProximityIntentReceiver extends BroadcastReceiver {
 
 	         
 	        NotificationManager notificationManager =
-	            (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-//	         
-//	        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, null, 0);       
+	            (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);     
 		    PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
-		    		new Intent(PROX_ALERT_INTENT), 0);
+		    		new Intent(GeoAlarms.PROX_ALERT_INTENT), 0);
 	        Notification notification = createNotification();
 	        notification.setLatestEventInfo(context,
 	            "Proximity Alert!", "You are near your point of interest.", pendingIntent);
@@ -44,32 +43,6 @@ public class ProximityIntentReceiver extends BroadcastReceiver {
 	        notificationManager.notify(NOTIFICATION_ID, notification);
 	         
 	    }
-
-
-//	    private Notification createNotification(Context context, String title,
-//	    		String content, PendingIntent pIntent) {
-//	    		Notification notification = new Notification.Builder(context)
-//	    		.setContentTitle(title).setContentText(content)
-//	    		.setContentIntent(pIntent).getNotification();
-//
-//	    		notification.icon = R.drawable.ic_menu_notifications;
-//	    		notification.when = System.currentTimeMillis();
-//
-//	    		notification.flags |= Notification.FLAG_AUTO_CANCEL;
-//	    		notification.flags |= Notification.FLAG_SHOW_LIGHTS;
-//
-//	    		notification.defaults |= Notification.DEFAULT_VIBRATE;
-//	    		notification.defaults |= Notification.DEFAULT_LIGHTS;
-//
-//	    		notification.ledARGB = Color.WHITE;
-//	    		notification.ledOnMS = 1500;
-//	    		notification.ledOffMS = 1500;
-//
-//	    		return notification;
-//	    		}   
-	    
-	    
-	    
 	    
 	    private Notification createNotification() {
 	    	

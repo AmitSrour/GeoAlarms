@@ -49,8 +49,8 @@ public class AlarmEditor extends MapActivity {
 
 		// Radio Spinner
 		radioSpinner = (Spinner) this.findViewById(R.id.spinner1);
-		String[] items = new String[] { "1", "10", "20", "30", "40", "50" };
-		numericalItems = Arrays.asList(1, 10, 20, 30, 40, 50);
+		String[] items = new String[] { "10", "100", "1000", "10000", "100000", "1000000" };
+		numericalItems = Arrays.asList(10, 100, 1000, 10000, 100000, 1000000);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_item, items);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

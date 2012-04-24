@@ -25,6 +25,9 @@ public class GeoAlarms extends Application {
 	public static final int NEWALARM = 1;
 	public static final int REMOVEALARM = 2;
 	
+	// notify token
+	public static final String PROX_ALERT_INTENT = "com.geoalarms.Alert";
+	
     @Override
     public void onCreate(){
         super.onCreate();

@@ -10,6 +10,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.geoalarms.GeoAlarms;
@@ -20,34 +21,38 @@ public class LocListener implements LocationListener {
 	private LocationManager locManager;
 	private PendingIntent pendingIntent;
 	private final int NOEXPIRATION = -1;
-	
-	private String PROX_ALERT_INTENT = "com.geoalarms.activity.Map";
 
 	public LocListener() {
 		locManager = (LocationManager) GeoAlarms.context
 				.getSystemService(Context.LOCATION_SERVICE);
 
 		// Initialize the pending intent
-		Intent intent = new Intent(GeoAlarms.context, Map.class);
+		Intent intent = new Intent(GeoAlarms.PROX_ALERT_INTENT);
 		pendingIntent = PendingIntent.getBroadcast(GeoAlarms.context, 0,
 				intent, 0);
 
-		// Provider location by GPS, minimum time 1000ms, minimum distance 1 foot
-		locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000,
+		// Provider location by GPS, minimum time 1000ms, minimum distance 1
+		// foot
+		locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100,
 				1f, this);
-	
+		locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+				100, 1f, this);
+
 		// Set a proximity alert to every alarm in the system
 		addAllProximityAlert();
 	}
 
 	public void onLocationChanged(Location location) {
-		// TODO Auto-generated method stub
+		Log.v("LocListener", "Location Changed");
+		Log.v("LocListener", "Lat: " + location.getLatitude() + "," + "Long: "
+				+ location.getLongitude());
 		// Intent in = new Intent(GeoAlarms.context,Map.class);
 		// GeoAlarms.context.startActivity(in);
 		Toast.makeText(
 				GeoAlarms.context,
 				"Location Changed" + location.getLongitude() + ","
 						+ location.getLatitude(), Toast.LENGTH_SHORT);
+
 	}
 
 	public void onProviderDisabled(String provider) {
@@ -83,23 +88,23 @@ public class LocListener implements LocationListener {
 								// is detected
 				);
 
-		IntentFilter filter = new IntentFilter(PROX_ALERT_INTENT);
+		IntentFilter filter = new IntentFilter(GeoAlarms.PROX_ALERT_INTENT);
 		GeoAlarms.context.registerReceiver(new ProximityIntentReceiver(),
 				filter);
 	}
 
-	public void resetProximityAlert(){
+	public void resetProximityAlert() {
 		locManager.removeProximityAlert(pendingIntent);
 		addAllProximityAlert();
 	}
-	
-	private void addAllProximityAlert(){
+
+	private void addAllProximityAlert() {
 		List<Alarm> alarms = GeoAlarms.alarmManager.getAllAlarms();
 
 		for (Alarm alarm : alarms) {
-			addProximityAlert(alarm.coordinates.latitude,
-					alarm.coordinates.longitude, alarm.radius, NOEXPIRATION,
-					pendingIntent);
+			addProximityAlert(alarm.coordinates.getLatitude(),
+					alarm.coordinates.getLongitude(), alarm.radius,
+					NOEXPIRATION, pendingIntent);
 		}
 	}
 }
