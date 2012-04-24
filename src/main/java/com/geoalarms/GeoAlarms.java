@@ -20,6 +20,7 @@ public class GeoAlarms extends Application {
 	public static final int NEW_ALARM_ACTIVITY = 5;
 	public static final int UPDATEALARM = 0;
 	public static final int NEWALARM = 1;
+	public static final int REMOVEALARM = 2;
 	
     @Override
     public void onCreate(){

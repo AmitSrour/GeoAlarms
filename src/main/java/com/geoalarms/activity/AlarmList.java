@@ -77,26 +77,42 @@ public class AlarmList extends Activity {
 				String name = data.getStringExtra("name");
 				String description = data.getStringExtra("description");
 
+				Alarm alarm = new Alarm(radius, coords, name, description);
+				
 				if (resultCode == GeoAlarms.NEWALARM && data != null) {
 					// save the alarm object into DB
-					Alarm alarm = new Alarm(radius, coords, name, description);
 					GeoAlarms.alarmManager.add(alarm);
 
-					// update the listview elements
+					// add the alarm to the listview elements
 					alarms_names.addFirst(name);
 					adapter.notifyDataSetChanged();
-				} else if (resultCode == GeoAlarms.UPDATEALARM && data != null) {
-					// save the alarm object into DB
-					Alarm alarm = new Alarm(radius, coords, name, description);
-					GeoAlarms.alarmManager.update(alarm);
 					
-					// update the listview elements
+				} else if (resultCode == GeoAlarms.UPDATEALARM && data != null) {
+					// check if already exist a item in listview with the same name
 					if (!alarms_names.contains(name)){
 						String old_name = data.getStringExtra("old_name");
+						// remove the old alarm into DB and in ListView
+						Alarm old_alarm = GeoAlarms.alarmManager.getAlarm(old_name);
+						GeoAlarms.alarmManager.delete(old_alarm);
 						alarms_names.remove(old_name);
+						// insert a new alarm with the new name into DB
+						GeoAlarms.alarmManager.add(alarm);
 						alarms_names.addFirst(name);
 						adapter.notifyDataSetChanged();
+					}else{
+//						// update the actual alarm into DB
+//						GeoAlarms.alarmManager.update(alarm);
+						// possible path to update:
+						Alarm actual_alarm = GeoAlarms.alarmManager.getAlarm(name);
+						GeoAlarms.alarmManager.delete(actual_alarm);
+						GeoAlarms.alarmManager.add(alarm);
 					}
+				} else if (resultCode == GeoAlarms.REMOVEALARM && data != null) {
+					String to_remove_name = data.getStringExtra("old_name");
+					Alarm to_remove = GeoAlarms.alarmManager.getAlarm(to_remove_name); 
+					GeoAlarms.alarmManager.delete(to_remove);
+					alarms_names.remove(to_remove_name);
+					adapter.notifyDataSetChanged();
 				}
 			}
 

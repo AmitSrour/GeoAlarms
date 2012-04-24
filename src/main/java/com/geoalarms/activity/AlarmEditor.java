@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,6 +65,8 @@ public class AlarmEditor extends MapActivity {
 
 		} else if (ActivityType.equals("edit")) {
 			// edit alarm
+			Button remove = (Button) this.findViewById(R.id.button2);
+			remove.setVisibility(Button.VISIBLE);
 			
             old_name = type.getStringExtra("alarm_name");
             Alarm alarm_to_edit = GeoAlarms.alarmManager.getAlarm(old_name);
@@ -78,7 +81,9 @@ public class AlarmEditor extends MapActivity {
 
             // Actual map point
             this.point = alarm_to_edit.coordinates;
-			
+            PointOverlay om = new PointOverlay(point.toGeoPoint());
+    		mapView.invalidate();
+    		layers.add(om);
 			//add a remove Alarm button
 		}
 
@@ -90,14 +95,21 @@ public class AlarmEditor extends MapActivity {
 	}
 
 	public void markCenter(View v) {
-//		if (this.point != null) 
-//			// clear the old point Alarm in the map
-//			layers.clear();
+		if (this.point != null) 
+			// clear the old point Alarm in the map
+			layers.clear();
 		GeoPoint gp = mapView.getMapCenter();
 		this.point = new Coordinates(gp);
 		PointOverlay om = new PointOverlay(gp);
 		mapView.invalidate();
 		layers.add(om);
+	}
+	
+	public void removeAlarm(View v){
+		Intent in = new Intent();
+		in.putExtra("old_name", old_name);
+		this.setResult(GeoAlarms.REMOVEALARM,in);
+		finish();
 	}
 
 	public void onSubmit(View v) {

@@ -34,15 +34,15 @@ public class AlarmManager {
 
     public void update(Alarm... alarms) {
         for (Alarm alarm: alarms) {
-            try {
+//            try {
                 this.databaseHelper.update(alarm.radius,
                                            alarm.coordinates.latitude,
                                            alarm.coordinates.longitude,
                                            alarm.name,
                                            alarm.description);
-            } catch (SQLiteException e) {
-                // TODO: error handling
-            }
+//            } catch (SQLiteException e) {
+//                // TODO: error handling
+//            }
         }
     }
 
