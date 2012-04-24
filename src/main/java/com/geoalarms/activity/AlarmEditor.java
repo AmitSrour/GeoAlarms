@@ -13,9 +13,9 @@ import android.widget.Toast;
 
 import com.geoalarms.GeoAlarms;
 import com.geoalarms.R;
+import com.geoalarms.map.PointOverlay;
 import com.geoalarms.model.Alarm;
 import com.geoalarms.model.Coordinates;
-import com.geoalarms.model.MapOverlay;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
@@ -95,7 +95,7 @@ public class AlarmEditor extends MapActivity {
 //			layers.clear();
 		GeoPoint gp = mapView.getMapCenter();
 		this.point = new Coordinates(gp);
-		MapOverlay om = new MapOverlay(gp);
+		PointOverlay om = new PointOverlay(gp);
 		mapView.invalidate();
 		layers.add(om);
 	}
