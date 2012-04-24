@@ -1,13 +1,7 @@
 package com.geoalarms.activity;
 
-import java.lang.RuntimeException;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.geoalarms.GeoAlarms;
 import com.geoalarms.R;
@@ -15,7 +9,12 @@ import com.geoalarms.model.Alarm;
 import com.geoalarms.model.AlarmManager;
 import com.geoalarms.model.Coordinates;
 
-import java.util.LinkedList;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class AlarmList extends Activity {
 
@@ -28,14 +27,20 @@ public class AlarmList extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listalarms);
 
+		this.manager = new AlarmManager();
+		List<Alarm> alarms = manager.getAllAlarms();
+		
 		values = new LinkedList<String>();
+		
+		for (Alarm alarm : alarms) {
+			values.addFirst(alarm.name);
+		}
+		
 		adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, values);
 
 		this.alarmlist = (ListView) this.findViewById(R.id.alarmlist);
 		alarmlist.setAdapter(adapter);
-
-		this.manager = new AlarmManager();
 	}
 
 	public void addAlarm(View v) {
@@ -67,7 +72,7 @@ public class AlarmList extends Activity {
 				this.manager.add(alarm);
 
 				// update the listview elements
-				values.add(name);
+				values.addFirst(name);
 				adapter.notifyDataSetChanged();
 			}
 			break;
