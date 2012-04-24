@@ -47,7 +47,7 @@
         
         <!-- NewAlarm -->
         <activity android:name=".activity.AlarmEditor"
-            	  android:label="@string/help_view_name">
+            	  android:label="Alarm editor">
         </activity>
 
     </application>
