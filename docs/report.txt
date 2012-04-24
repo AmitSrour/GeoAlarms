@@ -2,8 +2,66 @@ GeoAlarms
 =========
 
 
-1. Package overview
-2.  
+1. Introduction
+2. Requirements
+3. Package overview
+4. Program usage  
+
+
+Introduction
+============
+
+The purpose of the project is to implementation of an Android application that
+allows its users to store alarms associated with geographical locations. Each
+alarm would have a radius within a notification would be triggered. 
+
+The applications uses the geolocating API, as well as Google Maps libraries for
+embeding maps in the different activities.
+
+
+Requirements
+============
+
+This section is a review of the original requirements, highlighting what we have
+achieved and explaining why we have failed to meet some of them. We also include
+some of our thoughts on future directions of the project.
+
+Map view
+~~~~~~~~
+
+We planned to make Map View the core of our application, stating that the user
+would be able to:
+- visualize the alarms;
+- obtain information about the alarms tapping on them;
+- use touch gestures to manipulate existing alarms and create new ones.
+
+The visualization of the alarms has been implemented, we can see at a glance what
+the nearby alarms are and what is their radius by opening the map view:
+
+SCREENSHOT
+
+The creation, edition and deletion of the alarms has not been implemented using
+touch gestures. Those operations have been implemented in the alarm list for
+convenience.
+
+Alarm view
+~~~~~~~~~~
+
+We stated that, apart from visualizing a list with all the alarms, the user would 
+be able to create, edit and delete alarms from the alarm view and that requirement 
+has been met.
+
+The components of the list only show the name of the alarm, but we have some
+improvements in mind, such as:
+- sort the alarms by distance to the current position (closest goes first);
+- show more information about the alarm than just the name;
+- use of slide gestures to operate on the alarms.
+
+TODO
+
+
+Package overview
+================
 
 src/main/java/
 └── com
@@ -131,3 +189,6 @@ This package contains the data structures used in the application:
 - `Alarm` objects store information about an alarm.
 - `Coordinates` objects encapsulate the alarm coordinates.
 
+
+Program usage
+=============
