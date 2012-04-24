@@ -3,8 +3,8 @@ package com.geoalarms.activity;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.geoalarms.GeoAlarms;
 import com.geoalarms.R;
+import com.geoalarms.GeoAlarms;
 import com.geoalarms.model.Alarm;
 import com.geoalarms.model.Coordinates;
 
@@ -18,7 +18,6 @@ import android.widget.ListView;
 public class AlarmList extends Activity {
 
 	private ListView alarmlist;
-	private AlarmManager manager;
 	private ArrayAdapter<String> adapter;
 	private LinkedList<String> values;
 
@@ -26,8 +25,7 @@ public class AlarmList extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listalarms);
 
-		this.manager = new AlarmManager();
-		List<Alarm> alarms = manager.getAllAlarms();
+		List<Alarm> alarms = GeoAlarms.alarmManager.getAllAlarms();
 		
 		values = new LinkedList<String>();
 		
@@ -68,7 +66,7 @@ public class AlarmList extends Activity {
 
 				// save the alarm object into DB
 				Alarm alarm = new Alarm(radius, coords, name, description);
-				GeoAlarms.manager.add(alarm);
+				GeoAlarms.alarmManager.add(alarm);
 
 				// update the listview elements
 				values.addFirst(name);
