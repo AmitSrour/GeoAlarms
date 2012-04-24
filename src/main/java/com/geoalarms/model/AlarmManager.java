@@ -63,13 +63,19 @@ public class AlarmManager {
 	    // get database
 	    SQLiteDatabase db = this.databaseHelper.getReadableDatabase();
         
-        Cursor cursor = db.rawQuery("SELECT * from alarms", null);
+        // TODO: improve query
+        Cursor cursor;
+        try {
+            cursor = db.rawQuery("SELECT * from alarms", null);
+        } catch (SQLiteException e) {
+            return alarms;
+        }
 
         if (cursor.moveToFirst()) {
-            while (cursor.moveToNext()) {
+            do  {
                 Alarm alarm = this.alarmFromCursor(cursor);
                 alarms.add(alarm);
-            }
+            } while (cursor.moveToNext());
         }
 
         db.close();

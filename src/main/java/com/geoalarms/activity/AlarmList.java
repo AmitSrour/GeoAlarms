@@ -6,7 +6,6 @@ import java.util.List;
 import com.geoalarms.GeoAlarms;
 import com.geoalarms.R;
 import com.geoalarms.model.Alarm;
-import com.geoalarms.model.AlarmManager;
 import com.geoalarms.model.Coordinates;
 
 import android.app.Activity;
@@ -69,7 +68,7 @@ public class AlarmList extends Activity {
 
 				// save the alarm object into DB
 				Alarm alarm = new Alarm(radius, coords, name, description);
-				this.manager.add(alarm);
+				GeoAlarms.manager.add(alarm);
 
 				// update the listview elements
 				values.addFirst(name);

@@ -1,10 +1,8 @@
 package com.geoalarms.activity;
 
-import com.geoalarms.GeoAlarms;
-
-import com.geoalarms.model.AlarmManager;
 
 import com.geoalarms.R;
+import com.geoalarms.GeoAlarms;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,14 +11,10 @@ import android.view.View;
 
 public class Home extends Activity {
 	
-	private AlarmManager manager;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dashboard);
-
-		this.manager = new AlarmManager();
 	}
 
 	public void toMap(View v) {
