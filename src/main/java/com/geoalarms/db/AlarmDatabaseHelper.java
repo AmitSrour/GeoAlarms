@@ -138,22 +138,4 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
             db.close();
         }
     }
-
-    public Cursor all() {
-	    // get database
-	    SQLiteDatabase db = this.getReadableDatabase();
-        
-        Cursor cursor = db.query(DATABASE_NAME,
-                                 KEYS,
-                                 null,
-                                 null,
-                                 null,
-                                 null,
-                                 null,
-                                 null);
-
-        db.close();
-
-        return cursor;
-    }
 }
