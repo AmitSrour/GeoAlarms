@@ -51,11 +51,15 @@ public class AlarmOverlay extends Overlay {
 			projection.toPixels(point, center);
 			
 			// draw radius
+			float radius = projection.metersToEquatorPixels((float) this.alarm.radius);
 			Paint circlePaint = new Paint();
 			circlePaint.setColor(0x30000000);
 			circlePaint.setStyle(Style.FILL_AND_STROKE);
 			// TODO: draw the circle calculating `radius`
-			canvas.drawCircle(center.x, center.y, 50, circlePaint);
+			canvas.drawCircle(center.x, 
+			                  center.y, 
+			                  (int) radius, 
+			                  circlePaint);
 			
 			// draw alarm name
 			Paint textPaint = new Paint();
