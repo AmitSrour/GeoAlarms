@@ -1,6 +1,6 @@
 package com.geoalarms.activity;
 
-import java.util.LinkedList;
+import java.lang.RuntimeException;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +14,8 @@ import com.geoalarms.R;
 import com.geoalarms.model.Alarm;
 import com.geoalarms.model.AlarmManager;
 import com.geoalarms.model.Coordinates;
+
+import java.util.LinkedList;
 
 public class AlarmList extends Activity {
 
