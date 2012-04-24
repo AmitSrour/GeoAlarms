@@ -32,18 +32,13 @@ public class AlarmManager {
         }
     }
 
-    public void update(Alarm... alarms) {
-        for (Alarm alarm: alarms) {
-//            try {
-                this.databaseHelper.update(alarm.radius,
-                                           alarm.coordinates.latitude,
-                                           alarm.coordinates.longitude,
-                                           alarm.name,
-                                           alarm.description);
-//            } catch (SQLiteException e) {
-//                // TODO: error handling
-//            }
-        }
+    public void update(String oldName, Alarm alarm) {
+        this.databaseHelper.update(oldName,
+                                   alarm.radius,
+                                   alarm.coordinates.latitude,
+                                   alarm.coordinates.longitude,
+                                   alarm.name,
+                                   alarm.description);
     }
 
     public void delete(Alarm... alarms) {
@@ -63,10 +58,17 @@ public class AlarmManager {
 	    // get database
 	    SQLiteDatabase db = this.databaseHelper.getReadableDatabase();
         
-        // TODO: improve query
         Cursor cursor;
         try {
-            cursor = db.rawQuery("SELECT * from alarms", null);
+            cursor = db.query(this.databaseHelper.DATABASE_NAME, 
+                              this.databaseHelper.KEYS,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null);
+                              
         } catch (SQLiteException e) {
             return alarms;
         }
@@ -85,8 +87,15 @@ public class AlarmManager {
 
     public Alarm getAlarm(String name) {
         SQLiteDatabase db = this.databaseHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * from alarms WHERE name='" + 
-                                        name + "'", null);
+        String nameField = "'" + name + "'";
+        Cursor cursor = db.query(this.databaseHelper.DATABASE_NAME,
+                                 this.databaseHelper.KEYS,
+                                 this.databaseHelper.KEY_NAME + "=" + nameField,
+                                 null,
+                                 null,
+                                 null,
+                                 null,
+                                 null);
 
         if (cursor.moveToFirst()) {
             Alarm alarm = this.alarmFromCursor(cursor);
@@ -96,24 +105,35 @@ public class AlarmManager {
         return null;
     }
 
-    // TODO
-    public List<Alarm> getAlarmsWithinRadius(Coordinates coordinates, int radius) {
-        List<Alarm> alarms =  new ArrayList<Alarm>();
-        return alarms;
+    public Alarm getAlarm(int id) {
+        SQLiteDatabase db = this.databaseHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT rowid, radius, latitude, longitude, name, description " +
+                                    " FROM alarms " +
+                                    " WHERE rowid=" + id,
+                                    null);
+
+        if (cursor.moveToFirst()) {
+            Alarm alarm = this.alarmFromCursor(cursor);
+            return alarm;
+        }
+
+        return null;
     }
 
     private Alarm alarmFromCursor(Cursor cursor) {
         // convert to `com.geoalarms.model.Alarm`
-        int radius = cursor.getInt(0);
+        int id = cursor.getInt(0);
+        int radius = cursor.getInt(1);
 
-        double latitude = cursor.getDouble(1);
-        double longitude = cursor.getDouble(2);
+        double latitude = cursor.getDouble(2);
+        double longitude = cursor.getDouble(3);
         Coordinates coords = new Coordinates(latitude, longitude);
 
-        String name = cursor.getString(3);
-        String description = cursor.getString(4);
+        String name = cursor.getString(4);
+        String description = cursor.getString(5);
 
-        Alarm alarm = new Alarm(radius,
+        Alarm alarm = new Alarm(id,
+                                radius,
                                 coords,
                                 name,
                                 description);

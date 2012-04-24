@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class Alarm {
+	public int id = 0;
 	public int radius;
 	public Coordinates coordinates;
 	public String name;
@@ -21,6 +22,27 @@ public class Alarm {
 		this.name = name;
 		this.description = description;
 	}
+
+	public Alarm(int id,
+	             int radius, 
+	             Coordinates coordinates, 
+	             String name, 
+	             String description) {
+		this.radius = radius;
+		this.coordinates = coordinates;
+		this.name = name;
+		this.description = description;
+	}
+
+    public void update(int radius, 
+	                   Coordinates coordinates, 
+	                   String name, 
+	                   String description) {
+		this.radius = radius;
+		this.coordinates = coordinates;
+		this.name = name;
+		this.description = description;
+    }
 
 	public LinearLayout alarmView(Context con){
 		LinearLayout pack = new LinearLayout(con);

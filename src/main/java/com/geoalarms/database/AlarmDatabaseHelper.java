@@ -10,21 +10,23 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class AlarmDatabaseHelper extends SQLiteOpenHelper {
 
     // database info
-    private static final String DATABASE_NAME = "alarms";
-    private static final int DATABASE_VERSION = 1;
+    protected static final String DATABASE_NAME = "alarms";
+    protected static final int DATABASE_VERSION = 1;
 
     // keys
-    private static final String KEY_RADIUS = "radius";
-    private static final String KEY_LATITUDE = "latitude";
-    private static final String KEY_LONGITUDE = "longitude";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_DESCRIPTION = "description";
+    protected static final String KEY_ROWID = "rowid";
+    protected static final String KEY_RADIUS = "radius";
+    protected static final String KEY_LATITUDE = "latitude";
+    protected static final String KEY_LONGITUDE = "longitude";
+    protected static final String KEY_NAME = "name";
+    protected static final String KEY_DESCRIPTION = "description";
 
-    private static final String[] KEYS = {KEY_RADIUS, 
-                                          KEY_LATITUDE,
-                                          KEY_LONGITUDE,
-                                          KEY_NAME,
-                                          KEY_DESCRIPTION};
+    protected static final String[] KEYS = {KEY_ROWID,
+                                            KEY_RADIUS, 
+                                            KEY_LATITUDE,
+                                            KEY_LONGITUDE,
+                                            KEY_NAME,
+                                            KEY_DESCRIPTION};
     
     // SQL query to create database
     private static final String ALARMS_TABLE_CREATE =
@@ -64,7 +66,6 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
 	        // TODO: throw an exception 
 	        return;
         } else {
-            
             // surround strings with `'`
             String nameField = "'" + name + "'";
             String descriptionField = "'" + description + "'";
@@ -81,13 +82,14 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
                                 latitude + ", " + 
                                 longitude + ", " + 
                                 nameField + ", " +
-                                descriptionField + ")");
+                                descriptionField + ");");
 
             db.close();
         }
     }
 
-	public void update(int radius, 
+	public void update(String oldName,
+	                   int radius, 
 	                   double latitude, 
 	                   double longitude, 
 	                   String name, 
@@ -102,17 +104,18 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
         } else {
             
             // surround strings with `'`
+            String oldNameField = "'" + oldName + "'";
             String nameField = "'" + name + "'";
             String descriptionField = "'" + description + "'";
 
             // update SQL statement
             db.execSQL("UPDATE " + DATABASE_NAME + " SET " + 
-                            KEY_RADIUS + "=" + radius + 
-                            KEY_LATITUDE + "=" + latitude +  
-                            KEY_LONGITUDE + "=" + longitude + 
-                            KEY_NAME + "=" + nameField +  
+                            KEY_RADIUS + "=" + radius + ", " +
+                            KEY_LATITUDE + "=" + latitude + ", " +  
+                            KEY_LONGITUDE + "=" + longitude + ", " + 
+                            KEY_NAME + "=" + nameField + ", " +  
                             KEY_DESCRIPTION + "=" + descriptionField  +
-                                " WHERE " + KEY_NAME + "=" + nameField);
+                                " WHERE " + KEY_NAME + "==" + oldNameField);
 
             db.close();
         }
@@ -122,19 +125,13 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
 	    // get database
 	    SQLiteDatabase db = this.getWritableDatabase();
 
-        if (db == null) {
-            // TODO: throw an exception 
-            return;
-        } else {
-            // surround strings with `'`
-            String nameField = "'" + name + "'";
+        // surround strings with `'`
+        String nameField = "'" + name + "'";
 
-            // delete SQL statement
-            db.execSQL("DELETE FROM " + DATABASE_NAME + 
-                        " WHERE" + 
-                            KEY_NAME + "=" + nameField);
+        // delete SQL statement
+        db.execSQL("DELETE FROM " + DATABASE_NAME + 
+                    " WHERE " + KEY_NAME + "==" + nameField);
 
-            db.close();
-        }
+        db.close();
     }
 }

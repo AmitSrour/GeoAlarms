@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.geoalarms.GeoAlarms;
 import com.geoalarms.R;
 import com.geoalarms.map.PointOverlay;
+import com.geoalarms.map.AlarmOverlay;
 import com.geoalarms.model.Alarm;
 import com.geoalarms.model.Coordinates;
 import com.google.android.maps.GeoPoint;
@@ -24,6 +25,8 @@ import com.google.android.maps.Overlay;
 
 public class AlarmEditor extends MapActivity {
 
+	private Intent submitIntent;
+	private boolean edit;
 	private MapView mapView = null;
 	private List<Overlay> layers = null;
 	private Spinner radioSpinner = null;
@@ -36,6 +39,9 @@ public class AlarmEditor extends MapActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.newalarm);
+		
+		// Prepare intent
+		this.submitIntent = new Intent();
 
 		// mapView
 		mapView = (MapView) this.findViewById(R.id.mapView);
@@ -57,36 +63,33 @@ public class AlarmEditor extends MapActivity {
 		alarmDescription = (TextView) this
 				.findViewById(R.id.descriptionAlarmTextView);
 
-		// Determinate Activity type, Edit or new alarm
-		Intent type = this.getIntent();
-		String ActivityType = type.getStringExtra("activity_type");
-		if (ActivityType.equals("add")) {
-			// add new Alarm
+		// Determinate if editing or adding a new alarm
+        this.edit = false;
+		Intent intent = this.getIntent();
+		String name = intent.getStringExtra("name");
+		Alarm alarmToEdit = GeoAlarms.alarmManager.getAlarm(name);
 
-		} else if (ActivityType.equals("edit")) {
-			// edit alarm
+        if (alarmToEdit != null) {
+            // existing alarm, edit
+            this.submitIntent.putExtra("oldName", name);
+
 			Button remove = (Button) this.findViewById(R.id.button2);
 			remove.setVisibility(Button.VISIBLE);
-			
-            old_name = type.getStringExtra("alarm_name");
-            Alarm alarm_to_edit = GeoAlarms.alarmManager.getAlarm(old_name);
 
-            alarmName.setText(alarm_to_edit.name);
-            // Alarm description
-            alarmDescription.setText(alarm_to_edit.description);
+            // Populate view with name and description
+            alarmName.setText(alarmToEdit.name);
+            alarmDescription.setText(alarmToEdit.description);
 
             // Selected radio in radio spinner
-            int pos = numericalItems.indexOf(alarm_to_edit.radius);
+            int pos = numericalItems.indexOf(alarmToEdit.radius);
             radioSpinner.setSelection(pos);
 
             // Actual map point
-            this.point = alarm_to_edit.coordinates;
-            PointOverlay om = new PointOverlay(point.toGeoPoint());
+            this.point = alarmToEdit.coordinates;
+            AlarmOverlay om = new AlarmOverlay(alarmToEdit);
     		mapView.invalidate();
     		layers.add(om);
-			//add a remove Alarm button
 		}
-
 	}
 
 	@Override
@@ -105,17 +108,13 @@ public class AlarmEditor extends MapActivity {
 		layers.add(om);
 	}
 	
-	public void removeAlarm(View v){
-		Intent in = new Intent();
-		in.putExtra("old_name", old_name);
-		this.setResult(GeoAlarms.REMOVEALARM,in);
-		finish();
-	}
+    public void removeAlarm(View v){
+        this.setResult(GeoAlarms.REMOVEALARM, this.submitIntent);
+        finish();
+    }
 
 	public void onSubmit(View v) {
 		if (this.point != null && !alarmName.getText().toString().equals("")) {
-			Intent in = new Intent();
-
 			// radius
 			int pos = radioSpinner.getSelectedItemPosition();
 			int radius = numericalItems.get(pos);
@@ -125,18 +124,19 @@ public class AlarmEditor extends MapActivity {
 			String description = alarmDescription.getText().toString();
 
 			// send data back
-			in.putExtra("radius", radius);
-			in.putExtra("latitude", point.latitude);
-			in.putExtra("longitude", point.longitude);
-			in.putExtra("name", name);
-			in.putExtra("description", description);
-			if (old_name != null){
+			this.submitIntent.putExtra("radius", radius);
+			this.submitIntent.putExtra("latitude", point.latitude);
+			this.submitIntent.putExtra("longitude", point.longitude);
+			this.submitIntent.putExtra("name", name);
+			this.submitIntent.putExtra("description", description);
+
+			if (this.edit) {
 				// this activity come from edit mode
-				in.putExtra("old_name", old_name);
-				this.setResult(GeoAlarms.UPDATEALARM, in);
-			}else{
-				this.setResult(GeoAlarms.NEWALARM, in);
+				this.setResult(GeoAlarms.UPDATEALARM, this.submitIntent);
+			} else {
+				this.setResult(GeoAlarms.NEWALARM, this.submitIntent);
 			}
+
 			finish();
 		} else {
 			Toast toast = Toast.makeText(getApplicationContext(),
