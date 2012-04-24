@@ -57,7 +57,7 @@ public class MapOverlay extends Overlay {
 ////		canv.drawText("%f,%f",geoPoint.getLatitudeE6(),geoPoint.getLongitudeE6(), centro.x + 10, centro.y + 5, p);
 //		
 //		
-////		Context context = GeoAlarms.getAppContext();
+////		Context context = GeoAlarms.context;
 ////		Toast.makeText(context, "Tapped", 10);
 //		return true;
 //	}

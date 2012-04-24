@@ -7,7 +7,6 @@ import java.util.List;
 import com.geoalarms.R;
 import com.geoalarms.GeoAlarms;
 import com.geoalarms.model.Alarm;
-import com.geoalarms.model.AlarmManager;
 import com.geoalarms.model.Coordinates;
 
 import android.app.Activity;
@@ -19,7 +18,6 @@ import android.widget.LinearLayout;
 public class AlarmList extends Activity {
 	
 	private LinearLayout alarmlist;
-	private AlarmManager manager;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -28,11 +26,10 @@ public class AlarmList extends Activity {
         setContentView(R.layout.listalarms);
         
         this.alarmlist = (LinearLayout) this.findViewById(R.id.alarmlist); 
-        this.manager = new AlarmManager();
 
-        List<Alarm> alarms = this.manager.getAllAlarms();
+        List<Alarm> alarms = GeoAlarms.alarmManager.getAllAlarms();
         for (Alarm alarm: alarms) {
-            this.alarmlist.addView(alarm.alarmView(GeoAlarms.getAppContext()));
+            this.alarmlist.addView(alarm.alarmView(GeoAlarms.context));
         }
     }
 	
@@ -61,9 +58,9 @@ public class AlarmList extends Activity {
                 String description = data.getStringExtra("description");
 
                 Alarm alarm = new Alarm(radius, coords, name, description);
-                this.manager.add(alarm);
+                GeoAlarms.alarmManager.add(alarm);
 
-                this.alarmlist.addView(alarm.alarmView(GeoAlarms.getAppContext()));
+                this.alarmlist.addView(alarm.alarmView(GeoAlarms.context));
 			}
 			break;
 		}
